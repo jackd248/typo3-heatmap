@@ -1,0 +1,36 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Kmi\Typo3ContentHeatmap\Widgets\Provider;
+
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Dashboard\Widgets\ListDataProviderInterface;
+
+class ContentHeatmapDataProvider implements ListDataProviderInterface
+{
+    /**
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function getItems(): array
+    {
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('sys_log');
+        $queryBuilder->getRestrictions()->removeAll();
+
+        $query = $queryBuilder
+            ->selectLiteral('DATE(FROM_UNIXTIME(tstamp)) AS change_date')
+            ->addSelectLiteral('COUNT(*) AS changes_count')
+            ->from('sys_log')
+            ->where(
+                $queryBuilder->expr()->eq('type', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT)),
+//                $queryBuilder->expr()->in('action', [0, 1, 2]),
+                $queryBuilder->expr()->eq('error', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT))
+            )
+            ->groupBy('change_date')
+            ->orderBy('change_date', 'DESC');
+
+        $results = $query->executeQuery()->fetchAllAssociative();
+        return $results;
+    }
+}

@@ -1,0 +1,27 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Kmi\Typo3ContentHeatmap\:
+        resource: '../Classes/*'
+
+    Kmi\Typo3ContentHeatmap\Widgets\Provider\SysLogButtonProvider:
+        arguments:
+            $title: 'LLL:EXT:typo3_content_heatmap/Resources/Private/Language/locallang.xlf:widgets.recentUpdates.buttonText'
+
+    Kmi\Typo3ContentHeatmap\Widgets\ContentHeatmap:
+        class: 'Kmi\Typo3ContentHeatmap\Widgets\ContentHeatmap'
+        arguments:
+            $dataProvider: '@Kmi\Typo3ContentHeatmap\Widgets\Provider\ContentHeatmapDataProvider'
+        tags:
+            -   name: dashboard.widget
+                identifier: 'contentHeatmap'
+                groupNames: 'systemInfo'
+                title: 'LLL:EXT:typo3_content_heatmap/Resources/Private/Language/locallang.xlf:widgets.title'
+                description: 'LLL:EXT:typo3_content_heatmap/Resources/Private/Language/locallang.xlf:widgets.description'
+                iconIdentifier: 'heatmap-widget'
+                height: 'medium'
+                width: 'medium'
+

@@ -1,0 +1,34 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:dashboard="http://typo3.org/ns/TYPO3/CMS/Dashboard/ViewHelpers"
+      xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<div class="widget-content-title d-flex" style="gap:10px;">
+    <core:icon identifier="heatmap-widget" size="small"/>
+    <span><f:translate key="widgets.title" extensionName="Typo3ContentHeatmap"/></span>
+</div>
+<div class="widget-content-main" style="padding: 0">
+    <f:if condition="{records}">
+        <f:then>
+            <div id="heatmap-container" data-values="{records -> f:format.json()}"></div>
+            <f:comment><f:debug inline="true">{records}</f:debug></f:comment>
+        </f:then>
+        <f:else>
+            <div class="row widget-no-items-found">
+                <div class="col-xs-12">
+                    <p>
+                        <f:translate key="widgets.empty" extensionName="Typo3ContentHeatmap"/>
+                    </p>
+                </div>
+            </div>
+        </f:else>
+    </f:if>
+</div>
+
+<div class="widget-content-footer">
+    <f:if condition="{button}">
+        <dashboard:widget.button button="{button}" class="widget-cta">{f:translate(id: button.title, default: button.title)}</dashboard:widget.button>
+    </f:if>
+</div>
+
+</html>
