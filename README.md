@@ -2,13 +2,14 @@
 
 ![Extension icon](Resources/Public/Icons/Extension.png)
 
-# TYPO3 extension `typo3_content_heatmap`
+# TYPO3 extension `typo3_heatmap_widget`
 
-[![Supported TYPO3 versions](https://badgen.net/badge/TYPO3/11%20&%2012%20&%2013/orange)](https://extensions.typo3.org/extension/typo3_content_heatmap)
+[![Supported TYPO3 versions](https://badgen.net/badge/TYPO3/11,%2012%20&%2013/orange)](https://extensions.typo3.org/extension/typo3_heatmap_widget)
 
 </div>
 
-ToDo
+This extension provides a dashboard widget to display a heatmap of e.g. TYPO3 content changes.
+
 ## Installation
 
 ### Composer
@@ -16,7 +17,7 @@ ToDo
 In a composer-based TYPO3 installation you can install the extension EXT:xima-typo3-recent-updates via composer:
 
 ``` bash
-composer require kmi/typo3-content-heatmap
+composer require kmi/typo3-heatmap-widget
 ```
 
 ### TER
@@ -25,10 +26,11 @@ ToDo
 
 ## Usage
 
-1. Install the extension.
-2. Add the widget to your dashboard via the "System Information" tab.
-3. Display the content heatmap within your dashboard.
+![Show widget in the dashboard](Documentation/Images/widget.png "Show widget in the dashboard")
 
+## Configuration
+
+ToDo
 
 ## License
 

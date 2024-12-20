@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Kmi\Typo3ContentHeatmap\Widgets\Provider;
+namespace Kmi\Typo3HeatmapWidget\Widgets\Provider;
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Dashboard\Widgets\ListDataProviderInterface;
 
-class ContentHeatmapDataProvider implements ListDataProviderInterface
+class ErrorDataProvider implements ListDataProviderInterface
 {
     /**
      * @throws \Doctrine\DBAL\Exception
@@ -23,14 +23,11 @@ class ContentHeatmapDataProvider implements ListDataProviderInterface
             ->addSelectLiteral('COUNT(*) AS changes_count')
             ->from('sys_log')
             ->where(
-                $queryBuilder->expr()->eq('type', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT)),
-//                $queryBuilder->expr()->in('action', [0, 1, 2]),
-                $queryBuilder->expr()->eq('error', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT))
+                $queryBuilder->expr()->gte('error', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT))
             )
             ->groupBy('change_date')
             ->orderBy('change_date', 'DESC');
 
-        $results = $query->executeQuery()->fetchAllAssociative();
-        return $results;
+        return $query->executeQuery()->fetchAllAssociative();
     }
 }

@@ -5,19 +5,22 @@
 
 <div class="widget-content-title d-flex" style="gap:10px;">
     <core:icon identifier="heatmap-widget" size="small"/>
-    <span><f:translate key="widgets.title" extensionName="Typo3ContentHeatmap"/></span>
+    <span><f:translate key="{configuration.title}"/></span>
 </div>
-<div class="widget-content-main" style="padding: 0">
+<div class="widget-content-main">
     <f:if condition="{records}">
         <f:then>
-            <div id="heatmap-container" data-values="{records -> f:format.json()}"></div>
-            <f:comment><f:debug inline="true">{records}</f:debug></f:comment>
+            <div id="heatmap-container"
+                 data-values="{records -> f:format.json()}"
+                 {f:if(condition: options.color, then: 'data-options-color="{options.color}"', else: '')}
+                {f:if(condition: options.duration, then: 'data-options-duration="{options.duration}"', else: '')}
+            ></div>
         </f:then>
         <f:else>
             <div class="row widget-no-items-found">
                 <div class="col-xs-12">
                     <p>
-                        <f:translate key="widgets.empty" extensionName="Typo3ContentHeatmap"/>
+                        <f:translate key="widgets.empty" extensionName="Typo3HeatmapWidget"/>
                     </p>
                 </div>
             </div>

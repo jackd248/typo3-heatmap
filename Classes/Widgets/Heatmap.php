@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kmi\Typo3ContentHeatmap\Widgets;
+namespace Kmi\Typo3HeatmapWidget\Widgets;
 
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Page\JavaScriptModuleInstruction;
@@ -14,9 +14,9 @@ use TYPO3\CMS\Dashboard\Widgets\ListDataProviderInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 use TYPO3\CMS\Fluid\View\StandaloneView;
-use Kmi\Typo3ContentHeatmap\Configuration;
+use Kmi\Typo3HeatmapWidget\Configuration;
 
-class ContentHeatmap implements WidgetInterface, AdditionalCssInterface, JavaScriptInterface
+class Heatmap implements WidgetInterface, AdditionalCssInterface, JavaScriptInterface
 {
     protected ServerRequestInterface $request;
 
@@ -30,13 +30,12 @@ class ContentHeatmap implements WidgetInterface, AdditionalCssInterface, JavaScr
 
     public function renderWidgetContent(): string
     {
-        $template = GeneralUtility::getFileAbsFileName('EXT:typo3_content_heatmap/Resources/Private/Templates/List.html');
+        $template = GeneralUtility::getFileAbsFileName('EXT:typo3_heatmap_widget/Resources/Private/Templates/Heatmap.html');
 
-        // preparing view
         $view = GeneralUtility::makeInstance(StandaloneView::class);
         $view->setFormat('html');
-        $view->setTemplateRootPaths(['EXT:typo3_content_heatmap/Resources/Private/Templates/']);
-        $view->setPartialRootPaths(['EXT:typo3_content_heatmap/Resources/Private/Partials/']);
+        $view->setTemplateRootPaths(['EXT:typo3_heatmap_widget/Resources/Private/Templates/']);
+        $view->setPartialRootPaths(['EXT:typo3_heatmap_widget/Resources/Private/Partials/']);
         $view->setTemplatePathAndFilename($template);
 
         $view->assignMultiple([
@@ -61,7 +60,7 @@ class ContentHeatmap implements WidgetInterface, AdditionalCssInterface, JavaScr
     public function getJavaScriptModuleInstructions(): array
     {
         return [
-            JavaScriptModuleInstruction::create('@kmi/typo3contentheatmap/heatmap.js'),
+            JavaScriptModuleInstruction::create('@kmi/Typo3HeatmapWidget/heatmap.js'),
         ];
     }
 }

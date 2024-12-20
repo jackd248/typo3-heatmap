@@ -15,7 +15,7 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace Kmi\Typo3ContentHeatmap\Widgets\Provider;
+namespace Kmi\Typo3HeatmapWidget\Widgets\Provider;
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Dashboard\Widgets\ButtonProviderInterface;

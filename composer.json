@@ -1,5 +1,5 @@
 {
-    "name": "kmi/typo3-content-heatmap",
+    "name": "kmi/typo3-heatmap-widget",
     "description": "A widget for the dashboard to display content changes over a period.",
     "type": "typo3-cms-extension",
     "license": [
@@ -26,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Kmi\\Typo3ContentHeatmap\\": "Classes/"
+            "Kmi\\Typo3HeatmapWidget\\": "Classes/"
         }
     },
     "extra": {
         "typo3/cms": {
-            "extension-key": "typo3_content_heatmap"
+            "extension-key": "typo3_heatmap_widget"
         }
     },
     "config": {

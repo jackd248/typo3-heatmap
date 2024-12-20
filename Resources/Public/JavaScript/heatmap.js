@@ -1,5 +1,5 @@
 /**
- * Module: @kmi/typo3contentheatmap/heatmap
+ * Module: @kmi/Typo3HeatmapWidget/heatmap
  */
 class Heatmap {
 
@@ -7,21 +7,19 @@ class Heatmap {
         document.addEventListener('widgetContentRendered', function(event) {
             const container = event.target.querySelector('#heatmap-container');
             const data = JSON.parse(container.dataset.values);
+            const duration = container.dataset.hasOwnProperty('optionsDuration') ? container.dataset.optionsDuration: 365;
 
-            // @ToDo: Implement configuration options
-            const config = {
-                duration: 365,
-                baseColor: '#ff8700',
-            };
 
+            console.log(container.dataset.hasOwnProperty('options-color'));
+            console.log(container.dataset);
             const containerWidth = container.offsetWidth;
-            const cellSize = containerWidth / (Math.floor(config.duration / 7) + 1);
+            const cellSize = containerWidth / (Math.floor(duration / 7) + 1);
             const height = 7 * cellSize + 40;
 
             const colorScale = count => {
                 if (count === 0) return 'rgba(255,255,255,0)';
                 const intensity = Math.min(count / 100, 1);
-                const [r, g, b] = [255, 135, 0];
+                const [r, g, b] = (container.dataset.hasOwnProperty('optionsColor') ? container.dataset.optionsColor : '255, 135, 0').split(',').map(Number);
                 return `rgba(${r}, ${g}, ${b}, ${0.1 + intensity * 0.9})`;
             };
 
@@ -30,7 +28,7 @@ class Heatmap {
             }, '1970-01-01'));
 
             const startDate = new Date(latestDate);
-            startDate.setDate(startDate.getDate() - config.duration + 1);
+            startDate.setDate(startDate.getDate() - duration + 1);
             const endDate = latestDate;
 
             const dateMap = new Map(data.map(d => [d.change_date, d.changes_count]));
@@ -73,7 +71,7 @@ class Heatmap {
             tooltipText.setAttribute('alignment-baseline', 'middle');
             tooltipGroup.appendChild(tooltipText);
 
-            const totalWeeks = Math.ceil(config.duration / 7);
+            const totalWeeks = Math.ceil(duration / 7);
 
             const yearMarkers = new Set();
             const monthMarkers = new Set();
@@ -83,10 +81,6 @@ class Heatmap {
                 const dayOfWeek = date.getDay();
                 const startDayOfWeek = startDate.getDay();
                 const weekOfYear = Math.floor((date - startDate + (startDayOfWeek * 24 * 60 * 60 * 1000)) / (7 * 24 * 60 * 60 * 1000));
-                console.log(date);
-                console.log(startDate);
-                console.log(weekOfYear);
-
                 // Rechteck für jeden Tag zeichnen
                 const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
                 rect.setAttribute('x', weekOfYear * cellSize);

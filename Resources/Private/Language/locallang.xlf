@@ -2,11 +2,17 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
 	<file source-language="en" datatype="plaintext" original="messages" date="2023-08-16T12:26:48Z">
 		<body>
-			<trans-unit id="widgets.title">
+			<trans-unit id="widgets.contentChanges.title">
 				<source>Content changes</source>
 			</trans-unit>
-			<trans-unit id="widgets.description">
+			<trans-unit id="widgets.contentChanges.description">
 				<source>Displays a heatmap of content changes over a period.</source>
+			</trans-unit>
+			<trans-unit id="widgets.error.title">
+				<source>Errors</source>
+			</trans-unit>
+			<trans-unit id="widgets.error.description">
+				<source>Displays a heatmap of errors over a period.</source>
 			</trans-unit>
 			<trans-unit id="widgets.empty">
 				<source>No content</source>

@@ -3,6 +3,6 @@
 return [
     'dependencies' => ['core', 'backend'],
     'imports' => [
-        '@kmi/typo3contentheatmap/' => 'EXT:typo3_content_heatmap/Resources/Public/JavaScript/',
+        '@kmi/Typo3HeatmapWidget/' => 'EXT:typo3_heatmap_widget/Resources/Public/JavaScript/',
     ],
 ];

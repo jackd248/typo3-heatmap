@@ -4,24 +4,40 @@ services:
         autoconfigure: true
         public: false
 
-    Kmi\Typo3ContentHeatmap\:
+    Kmi\Typo3HeatmapWidget\:
         resource: '../Classes/*'
 
-    Kmi\Typo3ContentHeatmap\Widgets\Provider\SysLogButtonProvider:
+    Kmi\Typo3HeatmapWidget\Widgets\Provider\SysLogButtonProvider:
         arguments:
-            $title: 'LLL:EXT:typo3_content_heatmap/Resources/Private/Language/locallang.xlf:widgets.recentUpdates.buttonText'
+            $title: 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:widgets.recentUpdates.buttonText'
 
-    Kmi\Typo3ContentHeatmap\Widgets\ContentHeatmap:
-        class: 'Kmi\Typo3ContentHeatmap\Widgets\ContentHeatmap'
+    contentChangesHeatmap:
+        class: 'Kmi\Typo3HeatmapWidget\Widgets\Heatmap'
         arguments:
-            $dataProvider: '@Kmi\Typo3ContentHeatmap\Widgets\Provider\ContentHeatmapDataProvider'
+            $dataProvider: '@Kmi\Typo3HeatmapWidget\Widgets\Provider\ContentChangesDataProvider'
         tags:
             -   name: dashboard.widget
-                identifier: 'contentHeatmap'
+                identifier: 'contentChangesHeatmap'
                 groupNames: 'systemInfo'
-                title: 'LLL:EXT:typo3_content_heatmap/Resources/Private/Language/locallang.xlf:widgets.title'
-                description: 'LLL:EXT:typo3_content_heatmap/Resources/Private/Language/locallang.xlf:widgets.description'
+                title: 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:widgets.contentChanges.title'
+                description: 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:widgets.contentChanges.description'
                 iconIdentifier: 'heatmap-widget'
                 height: 'medium'
                 width: 'medium'
 
+
+    errorHeatmap:
+        class: 'Kmi\Typo3HeatmapWidget\Widgets\Heatmap'
+        arguments:
+            $dataProvider: '@Kmi\Typo3HeatmapWidget\Widgets\Provider\ErrorDataProvider'
+            $options:
+                color: '194,24,7'
+        tags:
+            -   name: dashboard.widget
+                identifier: 'errorHeatmap'
+                groupNames: 'systemInfo'
+                title: 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:widgets.error.title'
+                description: 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:widgets.error.description'
+                iconIdentifier: 'heatmap-widget'
+                height: 'medium'
+                width: 'medium'
