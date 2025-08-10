@@ -39,15 +39,20 @@ export class HeatmapRenderer {
     createSVG() {
         this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         this.svg.setAttribute('width', this.layout.containerWidth);
-        // Add extra space to prevent label cutoff
-        this.svg.setAttribute('height', Math.max(this.layout.totalHeight + 50, this.layout.containerHeight));
+        this.svg.setAttribute('height', this.layout.containerHeight);
+        this.svg.style.display = 'block'; // Prevent inline spacing issues
         this.container.appendChild(this.svg);
     }
 
     createMainGroup() {
         this.mainGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+
+        // Ensure offsets don't cause overflow
+        const safeOffsetX = Math.max(0, Math.min(this.layout.offsetX, this.layout.containerWidth - this.layout.heatmapWidth));
+        const safeOffsetY = Math.max(0, Math.min(this.layout.offsetY, this.layout.containerHeight - this.layout.totalHeight));
+
         this.mainGroup.setAttribute('transform',
-            `translate(${this.layout.offsetX}, ${this.layout.offsetY})`
+            `translate(${safeOffsetX}, ${safeOffsetY})`
         );
         this.svg.appendChild(this.mainGroup);
     }
@@ -70,11 +75,25 @@ export class HeatmapRenderer {
     }
 
     calculateDateRange() {
+        const today = new Date();
+
         if (this.data.length === 0) {
-            // No data - show last 30 days
-            this.endDate = new Date();
-            this.startDate = new Date();
-            this.startDate.setDate(this.startDate.getDate() - 29);
+            // No data - default based on mode
+            this.endDate = new Date(today);
+            this.startDate = new Date(today);
+
+            switch (this.config.dateRangeMode) {
+                case 'month':
+                    this.startDate.setDate(this.startDate.getDate() - 29);
+                    break;
+                case 'year':
+                case 'year-auto':
+                    this.startDate.setDate(this.startDate.getDate() - 364);
+                    break;
+                default: // auto
+                    this.startDate.setDate(this.startDate.getDate() - 29);
+            }
+            this.updateDurationAndLayout();
             return;
         }
 
@@ -82,56 +101,120 @@ export class HeatmapRenderer {
         const dates = this.data.map(d => new Date(d.change_date)).sort((a, b) => a - b);
         const earliestDataDate = dates[0];
         const latestDataDate = dates[dates.length - 1];
-        const today = new Date();
 
         switch (this.config.dateRangeMode) {
+            case 'year':
+                // Show exactly one year from today backwards
+                this.endDate = new Date(today);
+                this.startDate = new Date(today);
+                this.startDate.setDate(this.startDate.getDate() - 364);
+                break;
+
+            case 'year-auto':
+                // Show current year based on available data
+                this.endDate = new Date(Math.min(latestDataDate, today));
+
+                // Start from beginning of year or first data, whichever is later
+                const yearStart = new Date(this.endDate.getFullYear(), 0, 1);
+                this.startDate = new Date(Math.max(earliestDataDate, yearStart));
+
+                // Ensure at least 30 days for meaningful display
+                const yearDays = Math.ceil((this.endDate - this.startDate) / (24 * 60 * 60 * 1000)) + 1;
+                if (yearDays < 30) {
+                    this.startDate = new Date(this.endDate);
+                    this.startDate.setDate(this.startDate.getDate() - 29);
+                }
+                break;
+
             case 'month':
+                // Show exactly 30 days (one month)
                 this.endDate = new Date(Math.min(latestDataDate, today));
                 this.startDate = new Date(this.endDate);
                 this.startDate.setDate(this.startDate.getDate() - 29);
                 break;
 
-            case 'year':
-                this.endDate = new Date(Math.min(latestDataDate, today));
-                this.startDate = new Date(this.endDate);
-                this.startDate.setDate(this.startDate.getDate() - 364);
-                break;
-
             case 'auto':
             default:
+                // Optimal space utilization based on container and data
                 this.endDate = new Date(Math.min(latestDataDate, today));
+
+                // Calculate optimal duration based on container dimensions
+                const optimalDuration = this.calculateOptimalDuration();
 
                 // Calculate days since first data
                 const daysSinceFirstData = Math.ceil((this.endDate - earliestDataDate) / (24 * 60 * 60 * 1000));
 
                 if (daysSinceFirstData < 30) {
-                    // Less than 30 days of data - show 30 days
+                    // Less than 30 days of data - show minimum 30 days
                     this.startDate = new Date(this.endDate);
                     this.startDate.setDate(this.startDate.getDate() - 29);
-                } else if (daysSinceFirstData < 365) {
-                    // Less than a year - show from first data date
+                } else if (daysSinceFirstData <= optimalDuration) {
+                    // Show all available data if it fits optimally
                     this.startDate = new Date(earliestDataDate);
                 } else {
-                    // More than a year - show last 365 days or from specified duration
-                    const daysToShow = Math.min(this.config.duration, 365);
+                    // Show optimal duration from end date
                     this.startDate = new Date(this.endDate);
-                    this.startDate.setDate(this.startDate.getDate() - daysToShow + 1);
+                    this.startDate.setDate(this.startDate.getDate() - optimalDuration + 1);
+
+                    // If we cross year boundary and have enough space, extend to show previous year
+                    if (this.endDate.getFullYear() > this.startDate.getFullYear() && optimalDuration >= 300) {
+                        const previousYearStart = new Date(this.startDate.getFullYear(), 0, 1);
+                        const daysToPreviousYear = Math.ceil((this.startDate - previousYearStart) / (24 * 60 * 60 * 1000));
+
+                        // If adding previous year data doesn't exceed optimal duration by more than 10%, include it
+                        if (daysToPreviousYear < optimalDuration * 0.1) {
+                            this.startDate = previousYearStart;
+                        }
+                    }
                 }
                 break;
         }
 
-        // Ensure minimum 30 days
-        const actualDays = Math.ceil((this.endDate - this.startDate) / (24 * 60 * 60 * 1000)) + 1;
-        if (actualDays < 30) {
-            this.startDate = new Date(this.endDate);
-            this.startDate.setDate(this.startDate.getDate() - 29);
+        this.updateDurationAndLayout();
+    }
+
+    calculateOptimalDuration() {
+        // Calculate optimal duration based on container size for best space utilization
+        const containerWidth = this.layout.containerWidth;
+        const containerHeight = this.layout.containerHeight;
+        const aspectRatio = containerWidth / containerHeight;
+
+        // Estimate optimal cell count based on container dimensions
+        const minCellSize = this.config.minCellSize;
+        const maxCellSize = this.config.maxCellSize;
+
+        // Calculate available space
+        const availableWidth = containerWidth - (this.config.containerPadding * 2);
+        const availableHeight = containerHeight - 100; // Reserve for labels/legend
+
+        // Determine if multi-row layout would be beneficial
+        const isSquareish = aspectRatio >= 0.7 && aspectRatio <= 1.3;
+        const hasHeightForMultiRow = containerHeight > 200;
+
+        let optimalDays;
+
+        if (isSquareish && hasHeightForMultiRow) {
+            // Multi-row layout - calculate based on both dimensions
+            const maxWeeksPerRow = Math.floor(availableWidth / minCellSize);
+            const maxRows = Math.min(4, Math.floor(availableHeight / (7 * minCellSize + 25)));
+            const totalOptimalWeeks = Math.min(maxWeeksPerRow * maxRows, 52); // Max 1 year
+            optimalDays = totalOptimalWeeks * 7;
+        } else {
+            // Single row layout
+            const optimalWeeks = Math.floor(availableWidth / maxCellSize);
+            optimalDays = Math.min(optimalWeeks * 7, 365); // Max 1 year
         }
 
+        // Ensure minimum 30 days, maximum 365 days
+        return Math.max(30, Math.min(365, optimalDays));
+    }
+
+    updateDurationAndLayout() {
         // Update duration based on actual calculated range
         const actualDuration = Math.ceil((this.endDate - this.startDate) / (24 * 60 * 60 * 1000)) + 1;
         this.config.duration = actualDuration;
 
-        // Recalculate layout with new duration to ensure optimal space usage
+        // Recalculate layout with new duration for optimal space usage
         this.layout = new HeatmapLayout(
             this.config,
             this.layout.containerWidth,
@@ -208,16 +291,27 @@ export class HeatmapRenderer {
     }
 
     formatTooltipContent(d) {
+        // Format date with full information including year based on locale
         const date = d.date.toLocaleDateString(this.config.locale, {
             day: '2-digit',
-            month: '2-digit'
+            month: '2-digit',
+            year: 'numeric'
         });
 
-        const changes = d.changes_count === 0 ? '0' :
-                       d.changes_count === 1 ? '1' :
-                       `${d.changes_count}`;
+        // Determine the correct word for "changes" based on locale
+        let changesWord;
+        const count = d.changes_count;
 
-        return `${date}: ${changes}`; // Kompakter: "04.08: 9" statt "04.08.2025: 9 Änderungen"
+        if (this.config.locale.startsWith('de')) {
+            changesWord = count === 1 ? 'Änderung' : 'Änderungen';
+        } else if (this.config.locale.startsWith('en')) {
+            changesWord = count === 1 ? 'change' : 'changes';
+        } else {
+            // Fallback to English
+            changesWord = count === 1 ? 'change' : 'changes';
+        }
+
+        return `${date}: ${count} ${changesWord}`;
     }
 
     renderDateLabels(d, currentRow, weekInRow, dayOfWeek, yearMarkers, monthMarkers) {

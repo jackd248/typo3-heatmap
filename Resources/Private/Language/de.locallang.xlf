@@ -10,6 +10,14 @@
 				<source />
 				<target>Zeigt eine Heatmap mit allen Inhaltsänderungen in einem bestimmten Zeitraum.</target>
 			</trans-unit>
+			<trans-unit id="widgets.contentChangesSmall.title">
+				<source />
+				<target>Inhaltsänderungen (klein)</target>
+			</trans-unit>
+			<trans-unit id="widgets.contentChangesSmall.description">
+				<source />
+				<target>Zeigt eine Heatmap mit allen Inhaltsänderungen in einem bestimmten Zeitraum in einem kleinen Dashboard Widget.</target>
+			</trans-unit>
 			<trans-unit id="widgets.error.title">
 				<source />
 				<target>Fehler</target>

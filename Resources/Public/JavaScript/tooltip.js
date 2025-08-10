@@ -38,14 +38,14 @@ export class HeatmapTooltip {
     }
 
     show(x, y, content, containerWidth, containerHeight) {
-        // Measure text to adjust tooltip width dynamically
+        // Measure text to adjust tooltip width dynamically - make it wider
         this.text.textContent = content;
         const textLength = content.length;
-        const dynamicWidth = Math.min(Math.max(textLength * 6.5, this.config.tooltipWidth), 160);
+        const dynamicWidth = Math.min(Math.max(textLength * 7.5, 160), 220); // Increased min width and multiplier
 
-        // Smart positioning with dynamic width
+        // Smart positioning - position closer to the cell
         let tooltipX = x;
-        let tooltipY = y - this.config.tooltipHeight - 10;
+        let tooltipY = y - this.config.tooltipHeight - 5; // Reduced distance from cell
 
         // Horizontal overflow protection
         if (tooltipX + dynamicWidth / 2 > containerWidth - 5) {
@@ -55,9 +55,9 @@ export class HeatmapTooltip {
             tooltipX = dynamicWidth / 2 + 5;
         }
 
-        // Vertical overflow protection
-        if (tooltipY < 5) {
-            tooltipY = y + 25; // Show below if no space above
+        // Vertical overflow protection - prefer showing below if not enough space above
+        if (tooltipY < 30) { // Increased threshold for better spacing
+            tooltipY = y + 30; // Show below with proper distance
         }
 
         this.group.setAttribute('visibility', 'visible');

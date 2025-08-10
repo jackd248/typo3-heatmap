@@ -28,4 +28,8 @@ return [
         'provider' => SvgIconProvider::class,
         'source' => 'EXT:typo3_heatmap_widget/Resources/Public/Icons/content-heatmap-widget.svg',
     ],
+    'heatmap-widget-error' => [
+        'provider' => SvgIconProvider::class,
+        'source' => 'EXT:typo3_heatmap_widget/Resources/Public/Icons/error-heatmap-widget.svg',
+    ],
 ];

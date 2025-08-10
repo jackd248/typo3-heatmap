@@ -24,6 +24,10 @@ class Heatmap {
         const container = target.querySelector('#heatmap-container');
         if (!container) return;
 
+        // Prevent duplicate initialization
+        if (container.dataset.initialized === 'true') return;
+        container.dataset.initialized = 'true';
+
         try {
             const data = JSON.parse(container.dataset.values || '[]');
             const options = this.parseOptions(container.dataset);
@@ -35,13 +39,15 @@ class Heatmap {
         } catch (error) {
             console.error('Error initializing heatmap:', error);
             this.showError(container, 'Failed to load heatmap data');
+            // Reset initialization flag on error
+            container.dataset.initialized = 'false';
         }
     }
 
     parseOptions(dataset) {
         return {
             duration: parseInt(dataset.optionsDuration) || 365,
-            dateRangeMode: dataset.optionsDateRangeMode || 'auto', // 'month', 'year', 'auto'
+            dateRangeMode: dataset.optionsDateRangeMode || 'auto', // 'year', 'year-auto', 'month', 'auto'
             color: dataset.optionsColor || '255, 135, 0',
             locale: dataset.optionsLocale || 'de-DE',
             showLegend: dataset.optionsShowLegend !== 'false',
