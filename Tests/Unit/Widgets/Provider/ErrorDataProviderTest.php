@@ -26,6 +26,7 @@ namespace KonradMichalik\Typo3HeatmapWidget\Tests\Unit\Widgets\Provider;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Result;
 use KonradMichalik\Typo3HeatmapWidget\Widgets\Provider\ErrorDataProvider;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Expression\ExpressionBuilder;
@@ -35,11 +36,11 @@ use TYPO3\CMS\Core\Database\Query\Restriction\QueryRestrictionContainerInterface
 class ErrorDataProviderTest extends TestCase
 {
     private ErrorDataProvider $subject;
-    private ConnectionPool $connectionPool;
-    private QueryBuilder $queryBuilder;
-    private ExpressionBuilder $expressionBuilder;
-    private QueryRestrictionContainerInterface $restrictions;
-    private Result $result;
+    private ConnectionPool&MockObject $connectionPool;
+    private QueryBuilder&MockObject $queryBuilder;
+    private ExpressionBuilder&MockObject $expressionBuilder;
+    private QueryRestrictionContainerInterface&MockObject $restrictions;
+    private Result&MockObject $result;
 
     protected function setUp(): void
     {

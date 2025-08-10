@@ -26,6 +26,7 @@ namespace KonradMichalik\Typo3HeatmapWidget\Tests\Unit\Widgets\Provider;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Result;
 use KonradMichalik\Typo3HeatmapWidget\Widgets\Provider\ContentChangesDataProvider;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Expression\ExpressionBuilder;
@@ -35,11 +36,11 @@ use TYPO3\CMS\Core\Database\Query\Restriction\QueryRestrictionContainerInterface
 class ContentChangesDataProviderTest extends TestCase
 {
     private ContentChangesDataProvider $subject;
-    private ConnectionPool $connectionPool;
-    private QueryBuilder $queryBuilder;
-    private ExpressionBuilder $expressionBuilder;
-    private QueryRestrictionContainerInterface $restrictions;
-    private Result $result;
+    private ConnectionPool&MockObject $connectionPool;
+    private QueryBuilder&MockObject $queryBuilder;
+    private ExpressionBuilder&MockObject $expressionBuilder;
+    private QueryRestrictionContainerInterface&MockObject $restrictions;
+    private Result&MockObject $result;
 
     protected function setUp(): void
     {
@@ -102,7 +103,7 @@ class ContentChangesDataProviderTest extends TestCase
         $this->expressionBuilder
             ->expects(self::exactly(2))
             ->method('eq')
-            ->willReturnCallback(function ($field, $value) {
+            ->willReturnCallback(function (string $field, string $value): string {
                 if ($field === 'type') {
                     return "type = '1'";
                 }
@@ -115,7 +116,7 @@ class ContentChangesDataProviderTest extends TestCase
         $this->queryBuilder
             ->expects(self::exactly(2))
             ->method('createNamedParameter')
-            ->willReturnCallback(function ($value, $type) {
+            ->willReturnCallback(function (int $value, ParameterType $type): string {
                 if ($value === 1 && $type === ParameterType::INTEGER) {
                     return ':param1';
                 }

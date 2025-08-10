@@ -55,12 +55,17 @@ class HeatmapTest extends TestCase
         );
     }
 
-    public function testRenderWidgetContentMethodExists(): void
+    public function testRenderWidgetContentExecutesSuccessfully(): void
     {
-        // We can't easily test the exact output without complex mocking of static methods,
-        // but we can test that the method exists and is callable
-        self::assertTrue(method_exists($this->subject, 'renderWidgetContent'));
-        self::assertTrue(is_callable([$this->subject, 'renderWidgetContent']));
+        // Mock the data provider to return test data
+        $this->dataProvider
+            ->method('getItems')
+            ->willReturn([]);
+
+        $result = $this->subject->renderWidgetContent();
+
+        // The method should return content (it always returns a string from the template)
+        self::assertNotEmpty($result);
     }
 
     public function testGetOptions(): void
@@ -97,13 +102,8 @@ class HeatmapTest extends TestCase
     {
         $actualInstructions = $this->subject->getJavaScriptModuleInstructions();
 
-        self::assertIsArray($actualInstructions);
         self::assertCount(1, $actualInstructions);
         self::assertInstanceOf(JavaScriptModuleInstruction::class, $actualInstructions[0]);
-
-        // Test that we got the expected JavaScript module instruction
-        // We can't easily access the internal properties, but we can test the type
-        self::assertIsObject($actualInstructions[0]);
     }
 
     public function testConstructorWithoutButtonProvider(): void
