@@ -44,7 +44,7 @@ class ErrorDataProviderTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $this->connectionPool = $this->createMock(ConnectionPool::class);
         $this->queryBuilder = $this->createMock(QueryBuilder::class);
         $this->expressionBuilder = $this->createMock(ExpressionBuilder::class);

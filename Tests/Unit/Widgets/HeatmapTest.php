@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace KonradMichalik\Typo3HeatmapWidget\Tests\Unit\Widgets;
 
 use KonradMichalik\Typo3HeatmapWidget\Configuration;
-use KonradMichalik\Typo3HeatmapWidget\Utility\ViewFactoryHelper;
 use KonradMichalik\Typo3HeatmapWidget\Widgets\Heatmap;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -43,7 +42,7 @@ class HeatmapTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $this->configuration = $this->createMock(WidgetConfigurationInterface::class);
         $this->dataProvider = $this->createMock(ListDataProviderInterface::class);
         $this->buttonProvider = $this->createMock(ButtonProviderInterface::class);
@@ -101,7 +100,7 @@ class HeatmapTest extends TestCase
         self::assertIsArray($actualInstructions);
         self::assertCount(1, $actualInstructions);
         self::assertInstanceOf(JavaScriptModuleInstruction::class, $actualInstructions[0]);
-        
+
         // Test that we got the expected JavaScript module instruction
         // We can't easily access the internal properties, but we can test the type
         self::assertIsObject($actualInstructions[0]);

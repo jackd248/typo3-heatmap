@@ -44,7 +44,7 @@ class ContentChangesDataProviderTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $this->connectionPool = $this->createMock(ConnectionPool::class);
         $this->queryBuilder = $this->createMock(QueryBuilder::class);
         $this->expressionBuilder = $this->createMock(ExpressionBuilder::class);
@@ -105,7 +105,8 @@ class ContentChangesDataProviderTest extends TestCase
             ->willReturnCallback(function ($field, $value) {
                 if ($field === 'type') {
                     return "type = '1'";
-                } elseif ($field === 'error') {
+                }
+                if ($field === 'error') {
                     return "error = '0'";
                 }
                 return '';
@@ -117,7 +118,8 @@ class ContentChangesDataProviderTest extends TestCase
             ->willReturnCallback(function ($value, $type) {
                 if ($value === 1 && $type === ParameterType::INTEGER) {
                     return ':param1';
-                } elseif ($value === 0 && $type === ParameterType::INTEGER) {
+                }
+                if ($value === 0 && $type === ParameterType::INTEGER) {
                     return ':param2';
                 }
                 return '';
