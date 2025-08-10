@@ -1,96 +1,99 @@
 {
-  "name": "konradmichalik/typo3-heatmap-widget",
-  "description": "A widget for the dashboard to display content changes over a period.",
-  "license": [
-	"GPL-2.0-or-later"
-  ],
-  "type": "typo3-cms-extension",
-  "authors": [
-	{
-	  "name": "Konrad Michalik",
-	  "email": "hej@konradmichalik.dev",
-	  "role": "Maintainer"
-	}
-  ],
-  "require": {
-	"php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0",
-	"typo3/cms-backend": "^12.0 || ^13.0",
-	"typo3/cms-core": "^12.0 || ^13.0",
-	"typo3/cms-dashboard": "^12.0 || ^13.0"
-  },
-  "require-dev": {
-	"armin/editorconfig-cli": "^2.0",
-	"eliashaeussler/php-cs-fixer-config": "2.3.0",
-	"eliashaeussler/version-bumper": "^2.4 || ^3.0",
-	"ergebnis/composer-normalize": "^2.44",
-	"friendsofphp/php-cs-fixer": "^3.52",
-	"helhum/typo3-console": "^7.0 || ^8.1",
-	"helmich/typo3-typoscript-lint": "^3.2",
-	"move-elevator/composer-translation-validator": "^1.0",
-	"phpstan/phpstan-deprecation-rules": "^1.0 || ^2.0",
-	"phpstan/phpstan-phpunit": "^1.0 || ^2.0",
-	"phpstan/phpstan-strict-rules": "^1.0 || ^2.0",
-	"phpunit/phpunit": "^10.2 || ^11.0 || ^12.0",
-	"saschaegerer/phpstan-typo3": "^1.10 || ^2.0",
-	"spaze/phpstan-disallowed-calls": "^4.0",
-	"ssch/typo3-rector": "^2.10 || ^3.0",
-	"symfony/translation": "^5.0 || ^6.3 || ^7.0",
-	"tomasvotruba/type-coverage": "^1.0 || ^2.0",
-	"typo3/cms-base-distribution": "^11.5 || ^12.4 || ^13.4",
-	"typo3/cms-lowlevel": "^11.5 || ^12.4 || ^13.4",
-	"typo3/coding-standards": "^0.7 || ^0.8"
-  },
-  "autoload": {
-	"psr-4": {
-	  "KonradMichalik\\Typo3HeatmapWidget\\": "Classes/"
-	}
-  },
-  "config": {
-	"allow-plugins": {
-	  "eliashaeussler/version-bumper": true,
-	  "ergebnis/composer-normalize": true,
-	  "move-elevator/composer-translation-validator": true,
-	  "typo3/class-alias-loader": false,
-	  "typo3/cms-composer-installers": false
-	}
-  },
-  "extra": {
-	"typo3/cms": {
-	  "extension-key": "typo3_heatmap_widget"
-	}
-  },
-  "scripts": {
-	"fix": [
-	  "@fix:composer",
-	  "@fix:editorconfig",
-	  "@fix:php"
+	"name": "konradmichalik/typo3-heatmap-widget",
+	"description": "A widget for the dashboard to display content changes over a period.",
+	"license": [
+		"GPL-2.0-or-later"
 	],
-	"fix:composer": "@composer normalize",
-	"fix:editorconfig": "@lint:editorconfig --fix",
-	"fix:php": "php vendor/bin/php-cs-fixer --config=php-cs-fixer.php fix",
-	"lint": [
-	  "@lint:composer",
-	  "@lint:editorconfig",
-	  "@lint:language",
-	  "@lint:php",
-	  "@lint:typoscript",
-	  "@lint:yaml"
+	"type": "typo3-cms-extension",
+	"authors": [
+		{
+			"name": "Konrad Michalik",
+			"email": "hej@konradmichalik.dev",
+			"role": "Maintainer"
+		}
 	],
-	"lint:composer": "@fix:composer --dry-run",
-	"lint:editorconfig": "ec --git-only",
-	"lint:language": "@composer validate-translations ./Resources/Private/Language",
-	"lint:php": "@fix:php --dry-run",
-	"lint:typoscript": "typoscript-lint --fail-on-warnings",
-	"lint:yaml": "find ./ ! -path './vendor/*' ! -path '*/node_modules/*' ! -path './.Build/*' ! -path './xima_typo3_content_planner/*' \\( -name '*.yaml' -o -name '*.yml' \\) | xargs -r yaml-lint",
-	"migration": [
-	  "@migration:rector"
-	],
-	"migration:rector": "rector process -c rector.php",
-	"sca": [
-	  "@sca:php"
-	],
-	"sca:php": "phpstan analyse --memory-limit=2G",
-	"test": "@test:coverage --no-coverage",
-	"test:coverage": "XDEBUG_MODE=coverage phpunit -c phpunit.xml"
-  }
+	"require": {
+		"php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0",
+		"doctrine/dbal": "^2.13.8 || ^3.9 || ^4.2",
+		"psr/http-message": "^1.0 || ^2.0",
+		"typo3/cms-backend": "^12.0 || ^13.0",
+		"typo3/cms-core": "^12.0 || ^13.0",
+		"typo3/cms-dashboard": "^12.0 || ^13.0",
+		"typo3/cms-fluid": "^11.0 || ^12.0 || ^13.0"
+	},
+	"require-dev": {
+		"armin/editorconfig-cli": "^2.0",
+		"eliashaeussler/php-cs-fixer-config": "2.3.0",
+		"eliashaeussler/version-bumper": "^2.4 || ^3.0",
+		"ergebnis/composer-normalize": "^2.44",
+		"friendsofphp/php-cs-fixer": "^3.52",
+		"helhum/typo3-console": "^7.0 || ^8.1",
+		"helmich/typo3-typoscript-lint": "^3.2",
+		"move-elevator/composer-translation-validator": "^1.0",
+		"phpstan/phpstan-deprecation-rules": "^1.0 || ^2.0",
+		"phpstan/phpstan-phpunit": "^1.0 || ^2.0",
+		"phpstan/phpstan-strict-rules": "^1.0 || ^2.0",
+		"phpunit/phpunit": "^10.2 || ^11.0 || ^12.0",
+		"saschaegerer/phpstan-typo3": "^1.10 || ^2.0",
+		"spaze/phpstan-disallowed-calls": "^4.0",
+		"ssch/typo3-rector": "^2.10 || ^3.0",
+		"symfony/translation": "^5.0 || ^6.3 || ^7.0",
+		"tomasvotruba/type-coverage": "^1.0 || ^2.0",
+		"typo3/cms-base-distribution": "^11.5 || ^12.4 || ^13.4",
+		"typo3/cms-lowlevel": "^11.5 || ^12.4 || ^13.4",
+		"typo3/coding-standards": "^0.7 || ^0.8"
+	},
+	"autoload": {
+		"psr-4": {
+			"KonradMichalik\\Typo3HeatmapWidget\\": "Classes/"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"eliashaeussler/version-bumper": true,
+			"ergebnis/composer-normalize": true,
+			"move-elevator/composer-translation-validator": true,
+			"typo3/class-alias-loader": false,
+			"typo3/cms-composer-installers": false
+		}
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "typo3_heatmap_widget"
+		}
+	},
+	"scripts": {
+		"fix": [
+			"@fix:composer",
+			"@fix:editorconfig",
+			"@fix:php"
+		],
+		"fix:composer": "@composer normalize",
+		"fix:editorconfig": "@lint:editorconfig --fix",
+		"fix:php": "php vendor/bin/php-cs-fixer --config=php-cs-fixer.php fix",
+		"lint": [
+			"@lint:composer",
+			"@lint:editorconfig",
+			"@lint:language",
+			"@lint:php",
+			"@lint:typoscript",
+			"@lint:yaml"
+		],
+		"lint:composer": "@fix:composer --dry-run",
+		"lint:editorconfig": "ec --git-only",
+		"lint:language": "@composer validate-translations ./Resources/Private/Language",
+		"lint:php": "@fix:php --dry-run",
+		"lint:typoscript": "typoscript-lint --fail-on-warnings",
+		"lint:yaml": "find ./ ! -path './vendor/*' ! -path '*/node_modules/*' ! -path './.Build/*' ! -path './xima_typo3_content_planner/*' \\( -name '*.yaml' -o -name '*.yml' \\) | xargs -r yaml-lint",
+		"migration": [
+			"@migration:rector"
+		],
+		"migration:rector": "rector process -c rector.php",
+		"sca": [
+			"@sca:php"
+		],
+		"sca:php": "phpstan analyse --memory-limit=2G",
+		"test": "@test:coverage --no-coverage",
+		"test:coverage": "XDEBUG_MODE=coverage phpunit -c phpunit.xml"
+	}
 }
