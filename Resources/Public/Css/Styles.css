@@ -1,3 +1,45 @@
+/* Heatmap Widget Styles - GitHub-inspired */
+#heatmap-container {
+    width: 100%;
+    min-height: 140px;
+    padding: 5px;
+    background: #f6f8fa;
+    border-radius: 6px;
+    overflow: visible;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#heatmap-container svg {
+    width: 100%;
+    height: auto;
+    background: transparent;
+    display: block;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    #heatmap-container {
+        padding: 3px;
+        min-height: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    #heatmap-container {
+        padding: 2px;
+        min-height: 100px;
+    }
+}
+
+/* Smooth transitions for interactive elements */
+rect {
+    transition: all 0.2s ease-in-out;
+}
+
 rect:hover {
-    stroke: #333;
+    filter: brightness(0.9);
+    transform-origin: center;
 }

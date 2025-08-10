@@ -13,7 +13,16 @@
             <div id="heatmap-container"
                  data-values="{records -> f:format.json()}"
                  {f:if(condition: options.color, then: 'data-options-color="{options.color}"', else: '')}
-                {f:if(condition: options.duration, then: 'data-options-duration="{options.duration}"', else: '')}
+                 {f:if(condition: options.duration, then: 'data-options-duration="{options.duration}"', else: '')}
+                 {f:if(condition: options.dateRangeMode, then: 'data-options-date-range-mode="{options.dateRangeMode}"', else: '')}
+                 {f:if(condition: options.locale, then: 'data-options-locale="{options.locale}"', else: '')}
+                 {f:if(condition: options.showLegend, then: 'data-options-show-legend="{options.showLegend}"', else: '')}
+                 {f:if(condition: options.showYearLabels, then: 'data-options-show-year-labels="{options.showYearLabels}"', else: '')}
+                 {f:if(condition: options.showMonthLabels, then: 'data-options-show-month-labels="{options.showMonthLabels}"', else: '')}
+                 {f:if(condition: options.minCellSize, then: 'data-options-min-cell-size="{options.minCellSize}"', else: '')}
+                 {f:if(condition: options.maxCellSize, then: 'data-options-max-cell-size="{options.maxCellSize}"', else: '')}
+                 {f:if(condition: options.tooltipWidth, then: 'data-options-tooltip-width="{options.tooltipWidth}"', else: '')}
+                 {f:if(condition: options.tooltipHeight, then: 'data-options-tooltip-height="{options.tooltipHeight}"', else: '')}
             ></div>
         </f:then>
         <f:else>
