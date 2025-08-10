@@ -1,0 +1,25 @@
+name: typo3-multi-version-extension
+repository: jackd248/ddev-typo3-multi-version-extension
+version: 0.1.2
+install_date: "2025-08-10T13:14:57+02:00"
+project_files:
+    - .typo3-setup/scripts/utils.sh
+    - .typo3-setup/templates/index.php
+    - .typo3-setup/Tests/.typo3-setup/
+    - apache/10.conf
+    - apache/20.conf
+    - commands/host/launch
+    - commands/web/.install-11
+    - commands/web/.install-12
+    - commands/web/.install-13
+    - commands/web/11
+    - commands/web/12
+    - commands/web/13
+    - commands/web/all
+    - commands/web/install
+    - docker-compose.typo3-setup.yaml
+global_files: []
+removal_actions:
+    - rm ${DDEV_APPROOT}/.ddev/config.typo3-setup.yaml
+    - rm -f ${DDEV_APPROOT}/.ddev/.typo3-setup/
+    - rm -rf ${DDEV_APPROOT}/Tests/.typo3-setup/
