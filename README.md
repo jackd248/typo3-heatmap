@@ -17,7 +17,7 @@ This extension provides a dashboard widget to display a heatmap of e.g. TYPO3 co
 In a composer-based TYPO3 installation you can install the extension EXT:xima-typo3-recent-updates via composer:
 
 ``` bash
-composer require kmi/typo3-heatmap-widget
+composer require KonradMichalik/typo3-heatmap-widget
 ```
 
 ### TER

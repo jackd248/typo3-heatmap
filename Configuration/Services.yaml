@@ -4,17 +4,17 @@ services:
         autoconfigure: true
         public: false
 
-    Kmi\Typo3HeatmapWidget\:
+    KonradMichalik\Typo3HeatmapWidget\:
         resource: '../Classes/*'
 
-    Kmi\Typo3HeatmapWidget\Widgets\Provider\SysLogButtonProvider:
+    KonradMichalik\Typo3HeatmapWidget\Widgets\Provider\SysLogButtonProvider:
         arguments:
             $title: 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:widgets.recentUpdates.buttonText'
 
     contentChangesHeatmap:
-        class: 'Kmi\Typo3HeatmapWidget\Widgets\Heatmap'
+        class: 'KonradMichalik\Typo3HeatmapWidget\Widgets\Heatmap'
         arguments:
-            $dataProvider: '@Kmi\Typo3HeatmapWidget\Widgets\Provider\ContentChangesDataProvider'
+            $dataProvider: '@KonradMichalik\Typo3HeatmapWidget\Widgets\Provider\ContentChangesDataProvider'
         tags:
             -   name: dashboard.widget
                 identifier: 'contentChangesHeatmap'
@@ -27,9 +27,9 @@ services:
 
 
     errorHeatmap:
-        class: 'Kmi\Typo3HeatmapWidget\Widgets\Heatmap'
+        class: 'KonradMichalik\Typo3HeatmapWidget\Widgets\Heatmap'
         arguments:
-            $dataProvider: '@Kmi\Typo3HeatmapWidget\Widgets\Provider\ErrorDataProvider'
+            $dataProvider: '@KonradMichalik\Typo3HeatmapWidget\Widgets\Provider\ErrorDataProvider'
             $options:
                 color: '194,24,7'
         tags:

@@ -4,7 +4,7 @@ services:
         environment:
             - EXTENSION_KEY=typo3_heatmap_widget
             - EXTENSION_NAME=typo3-heatmap-widget
-            - PACKAGE_NAME=kmi/typo3-heatmap-widget
+            - PACKAGE_NAME=konradmichalik/typo3-heatmap-widget
             - TYPO3_VERSIONS=11 12 13
             - SYMLINK_EXCLUSIONS=.* Documentation Documentation-GENERATED-temp var vendor public
 

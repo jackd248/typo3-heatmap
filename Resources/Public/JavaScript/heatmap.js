@@ -1,5 +1,5 @@
 /**
- * Module: @kmi/Typo3HeatmapWidget/heatmap
+ * Module: @KonradMichalik/Typo3HeatmapWidget/heatmap
  */
 class Heatmap {
 
