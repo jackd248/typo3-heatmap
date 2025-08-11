@@ -2,6 +2,9 @@
 
 Create a custom data providers for the Heatmap Widget to visualize your own data sources.
 
+> [!tip]
+> The heatmap widget can e.g. be used to visualize visitor analytics like [Matomo](https://matomo.org/) page views or any other data source that provides date-based counts.
+
 - [Data Format](#data-format)
 - [Implementation](#implementation)
   - [1. Data Provider Class](#1-data-provider-class)
@@ -73,6 +76,9 @@ services:
         height: 'medium'
         width: 'medium'
 ```
+
+> [!note]
+> The widget is fairly responsive, but not all sizes are compatible with the heat map display.
 
 ## Summary
 
