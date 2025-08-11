@@ -28,6 +28,7 @@ use Doctrine\DBAL\Result;
 use KonradMichalik\Typo3HeatmapWidget\Widgets\Provider\ContentChangesDataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Expression\ExpressionBuilder;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
@@ -37,6 +38,7 @@ class ContentChangesDataProviderTest extends TestCase
 {
     private ContentChangesDataProvider $subject;
     private ConnectionPool&MockObject $connectionPool;
+    private UriBuilder&MockObject $uriBuilder;
     private QueryBuilder&MockObject $queryBuilder;
     private ExpressionBuilder&MockObject $expressionBuilder;
     private QueryRestrictionContainerInterface&MockObject $restrictions;
@@ -47,12 +49,13 @@ class ContentChangesDataProviderTest extends TestCase
         parent::setUp();
 
         $this->connectionPool = $this->createMock(ConnectionPool::class);
+        $this->uriBuilder = $this->createMock(UriBuilder::class);
         $this->queryBuilder = $this->createMock(QueryBuilder::class);
         $this->expressionBuilder = $this->createMock(ExpressionBuilder::class);
         $this->restrictions = $this->createMock(QueryRestrictionContainerInterface::class);
         $this->result = $this->createMock(Result::class);
 
-        $this->subject = new ContentChangesDataProvider($this->connectionPool);
+        $this->subject = new ContentChangesDataProvider($this->connectionPool, $this->uriBuilder);
     }
 
     public function testGetItemsReturnsExpectedData(): void
@@ -118,7 +121,7 @@ class ContentChangesDataProviderTest extends TestCase
             ->method('createNamedParameter')
             ->willReturnCallback(function (int $value, int|ParameterType $type = null): string {
                 // Handle both old int constants and new ParameterType enum
-                $isIntegerType = $type === ParameterType::INTEGER || $type === \PDO::PARAM_INT;
+                $isIntegerType = $type === ParameterType::INTEGER || $type === \TYPO3\CMS\Core\Database\Connection::PARAM_INT;
 
                 if ($value === 1 && $isIntegerType) {
                     return ':param1';
