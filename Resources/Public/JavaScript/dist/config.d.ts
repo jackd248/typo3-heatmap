@@ -18,7 +18,11 @@ export declare class HeatmapConfig {
     containerPadding: number;
     tooltipWidth: number;
     tooltipHeight: number;
+    tooltipItemSingular: string;
+    tooltipItemPlural: string;
     weekStartsOnMonday: boolean;
+    legendLess: string;
+    legendMore: string;
     constructor(options?: HeatmapOptions);
 }
 //# sourceMappingURL=config.d.ts.map

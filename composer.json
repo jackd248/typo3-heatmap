@@ -14,6 +14,7 @@
 	],
 	"require": {
 		"php": "~8.2.0 || ~8.3.0 || ~8.4.0",
+		"ext-intl": "*",
 		"doctrine/dbal": "^2.13.8 || ^3.9 || ^4.2",
 		"psr/http-message": "^1.0 || ^2.0",
 		"typo3/cms-backend": "^12.0 || ^13.0",

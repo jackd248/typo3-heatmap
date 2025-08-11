@@ -17,7 +17,7 @@ export class HeatmapConfig {
             b: colorParts[2] ?? 0
         };
         // Localization
-        this.locale = options.locale ?? 'de-DE';
+        this.locale = options.locale ?? 'en-GB';
         // Display options
         this.showLegend = options.showLegend ?? true;
         this.showYearLabels = options.showYearLabels ?? true;
@@ -30,7 +30,12 @@ export class HeatmapConfig {
         // Tooltip configuration
         this.tooltipWidth = options.tooltipWidth ?? 120;
         this.tooltipHeight = options.tooltipHeight ?? 26;
+        this.tooltipItemSingular = options.tooltipItemSingular ?? 'change';
+        this.tooltipItemPlural = options.tooltipItemPlural ?? 'changes';
         // Week configuration
         this.weekStartsOnMonday = options.weekStartsOnMonday ?? false; // Default: Sunday (GitHub style)
+        // Legend labels
+        this.legendLess = options.legendLess ?? 'Less';
+        this.legendMore = options.legendMore ?? 'More';
     }
 }

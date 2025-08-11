@@ -26,6 +26,31 @@
 				<source />
 				<target>Alle Updates im Protokoll anzeigen</target>
 			</trans-unit>
+
+			<trans-unit id="tooltip.content.singular">
+				<source />
+				<target>Änderung</target>
+			</trans-unit>
+			<trans-unit id="tooltip.content.plural">
+				<source />
+				<target>Änderungen</target>
+			</trans-unit>
+			<trans-unit id="tooltip.error.singular">
+				<source />
+				<target>Problem</target>
+			</trans-unit>
+			<trans-unit id="tooltip.error.plural">
+				<source />
+				<target>Probleme</target>
+			</trans-unit>
+			<trans-unit id="legend.less">
+				<source />
+				<target>weniger</target>
+			</trans-unit>
+			<trans-unit id="legend.more">
+				<source />
+				<target>mehr</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

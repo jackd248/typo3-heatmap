@@ -21,7 +21,11 @@ export interface HeatmapOptions {
     maxCellSize?: number;
     tooltipWidth?: number;
     tooltipHeight?: number;
+    tooltipItemSingular?: string;
+    tooltipItemPlural?: string;
     weekStartsOnMonday?: boolean;
+    legendLess?: string;
+    legendMore?: string;
 }
 export interface HeatmapLayout {
     containerWidth: number;

@@ -34,6 +34,8 @@ services:
             $options:
                 color: '194,24,7'
                 dateRangeMode: 'auto'
+                tooltipItemSingular: 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:tooltip.error.singular'
+                tooltipItemPlural: 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:tooltip.error.plural'
         tags:
             -   name: dashboard.widget
                 identifier: 'errorHeatmap'

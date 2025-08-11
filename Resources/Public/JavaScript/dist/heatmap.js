@@ -46,7 +46,7 @@ class Heatmap {
             duration: parseInt(dataset.optionsDuration || '365'),
             dateRangeMode: dataset.optionsDateRangeMode || 'auto',
             color: dataset.optionsColor || '255, 135, 0',
-            locale: dataset.optionsLocale || 'de-DE',
+            locale: dataset.optionsLocale || 'en-GB',
             showLegend: dataset.optionsShowLegend !== 'false',
             showYearLabels: dataset.optionsShowYearLabels !== 'false',
             showMonthLabels: dataset.optionsShowMonthLabels !== 'false',

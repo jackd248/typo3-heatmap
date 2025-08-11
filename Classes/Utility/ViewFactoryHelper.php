@@ -26,6 +26,7 @@ namespace KonradMichalik\Typo3HeatmapWidget\Utility;
 use KonradMichalik\Typo3HeatmapWidget\Configuration;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Information\Typo3Version;
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\PathUtility;
 
@@ -37,6 +38,8 @@ class ViewFactoryHelper
     public static function renderView(string $template, array $values, ?ServerRequestInterface $request = null): string
     {
         $typo3Version = GeneralUtility::makeInstance(Typo3Version::class)->getMajorVersion();
+        $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
+        $pageRenderer->addInlineLanguageLabelFile('EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang.xlf');
 
         if ($typo3Version >= 13) {
             return self::renderView13($template, $values, $request);

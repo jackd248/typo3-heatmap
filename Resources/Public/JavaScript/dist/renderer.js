@@ -284,9 +284,7 @@ export class HeatmapRenderer {
             year: 'numeric'
         });
         const count = data.count ?? data.changes_count ?? 0;
-        const word = this.config.locale.startsWith('de')
-            ? (count === 1 ? 'Änderung' : 'Änderungen')
-            : (count === 1 ? 'change' : 'changes');
+        const word = count === 1 ? this.config.tooltipItemSingular : this.config.tooltipItemPlural;
         let tooltip = `${date}: ${count} ${word}`;
         // Add click hint if link exists
         if (data.link) {
@@ -417,7 +415,7 @@ export class HeatmapRenderer {
         lessLabel.setAttribute('y', legendY.toString());
         lessLabel.setAttribute('fill', '#586069');
         lessLabel.setAttribute('font-size', '11px');
-        lessLabel.textContent = 'Less';
+        lessLabel.textContent = this.config.legendLess;
         legendGroup.appendChild(lessLabel);
         // Legend squares
         for (let i = 0; i < 5; i++) {
@@ -442,7 +440,7 @@ export class HeatmapRenderer {
         moreLabel.setAttribute('y', legendY.toString());
         moreLabel.setAttribute('fill', '#586069');
         moreLabel.setAttribute('font-size', '11px');
-        moreLabel.textContent = 'More';
+        moreLabel.textContent = this.config.legendMore;
         legendGroup.appendChild(moreLabel);
         this.mainGroup.appendChild(legendGroup);
     }

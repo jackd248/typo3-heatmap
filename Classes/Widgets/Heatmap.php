@@ -33,10 +33,11 @@ use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
 use TYPO3\CMS\Dashboard\Widgets\ButtonProviderInterface;
 use TYPO3\CMS\Dashboard\Widgets\JavaScriptInterface;
 use TYPO3\CMS\Dashboard\Widgets\ListDataProviderInterface;
+use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 
-class Heatmap implements WidgetInterface, AdditionalCssInterface, JavaScriptInterface
+class Heatmap implements WidgetInterface, RequestAwareWidgetInterface, AdditionalCssInterface, JavaScriptInterface
 {
     protected ServerRequestInterface $request;
 
@@ -47,6 +48,11 @@ class Heatmap implements WidgetInterface, AdditionalCssInterface, JavaScriptInte
         protected array $options = []
     ) {}
 
+    public function setRequest(ServerRequestInterface $request): void
+    {
+        $this->request = $request;
+    }
+
     public function renderWidgetContent(): string
     {
         return ViewFactoryHelper::renderView(
@@ -55,15 +61,20 @@ class Heatmap implements WidgetInterface, AdditionalCssInterface, JavaScriptInte
                 'configuration' => $this->configuration,
                 'records' => $this->dataProvider->getItems(),
                 'button' => $this->buttonProvider,
-                'options' => $this->options,
+                'options' => $this->getOptions(),
                 'version' => GeneralUtility::makeInstance(Typo3Version::class)->getMajorVersion(),
+                'locale' => $this->request->getAttribute('language', 'en-GB')->getLocale(),
             ]
         );
     }
 
     public function getOptions(): array
     {
-        return $this->options;
+        $defaultOptions = [
+            'tooltipItemSingular' => 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:tooltip.content.singular',
+            'tooltipItemPlural' => 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:tooltip.content.plural',
+        ];
+        return array_merge($defaultOptions, $this->options);
     }
 
     public function getCssFiles(): array

@@ -20,6 +20,25 @@
 			<trans-unit id="widgets.buttonText">
 				<source>Show all updates in the protocol</source>
 			</trans-unit>
+
+			<trans-unit id="tooltip.content.singular">
+				<source>change</source>
+			</trans-unit>
+			<trans-unit id="tooltip.content.plural">
+				<source>changes</source>
+			</trans-unit>
+			<trans-unit id="tooltip.error.singular">
+				<source>issue</source>
+			</trans-unit>
+			<trans-unit id="tooltip.error.plural">
+				<source>issues</source>
+			</trans-unit>
+			<trans-unit id="legend.less">
+				<source>Less</source>
+			</trans-unit>
+			<trans-unit id="legend.more">
+				<source>More</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
