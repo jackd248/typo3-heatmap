@@ -1,5 +1,6 @@
 /**
  * Module: @KonradMichalik/Typo3HeatmapWidget/layout
+ * Version: 1.0.1 - Force single-row GitHub-style layout
  *
  * Layout calculator for responsive heatmap positioning
  */
@@ -30,12 +31,9 @@ export class HeatmapLayout {
     calculate() {
         const weekCount = Math.ceil(this.config.duration / 7);
 
-        // Determine layout strategy - avoid multi-row for small widgets
-        if (!this.isSmallWidget && this.isSquareWidget && this.containerHeight > 200 && weekCount > 20) {
-            this.calculateMultiRowLayout(weekCount);
-        } else {
-            this.calculateSingleRowLayout(weekCount);
-        }
+        // Always use single-row layout for GitHub-style heatmaps
+        // GitHub heatmaps always display chronologically left-to-right, newest on right
+        this.calculateSingleRowLayout(weekCount);
 
         this.calculateOffsets();
     }

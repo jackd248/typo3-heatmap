@@ -226,16 +226,36 @@ export class HeatmapRenderer {
         const yearMarkers = new Set();
         const monthMarkers = new Set();
 
+        // Calculate the Sunday of the start and end dates for proper week-based calculation
+        const startDateSunday = new Date(this.startDate);
+        startDateSunday.setDate(startDateSunday.getDate() - this.startDate.getDay());
+        
+        const endDateSunday = new Date(this.endDate);
+        endDateSunday.setDate(endDateSunday.getDate() - this.endDate.getDay());
+        
+        // Calculate total weeks based on Sunday-to-Sunday spans
+        const totalWeeks = Math.round((endDateSunday - startDateSunday) / (7 * 24 * 60 * 60 * 1000)) + 1;
+
         this.allDates.forEach((d, index) => {
-            const dayOfWeek = d.date.getDay();
-            const startDayOfWeek = this.startDate.getDay();
-            const absoluteWeek = Math.floor(
-                (d.date - this.startDate + (startDayOfWeek * 24 * 60 * 60 * 1000)) /
-                (7 * 24 * 60 * 60 * 1000)
-            );
+            const dayOfWeek = d.date.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+            
+            // Calculate which Sunday-based week this date belongs to
+            // First, find the Sunday of the week containing this date
+            const currentDateSunday = new Date(d.date);
+            currentDateSunday.setDate(currentDateSunday.getDate() - dayOfWeek);
+            
+            // Calculate how many weeks this date's Sunday is from the END date's Sunday (GitHub style: newest right)
+            const weeksFromEnd = Math.round((endDateSunday - currentDateSunday) / (7 * 24 * 60 * 60 * 1000));
+            const absoluteWeek = totalWeeks - 1 - weeksFromEnd;
+
+            // Skip dates that are outside our calculated range
+            if (absoluteWeek < 0 || absoluteWeek >= totalWeeks) {
+                return; // Skip rendering this date
+            }
 
             const currentRow = Math.floor(absoluteWeek / this.layout.weeksPerRow);
             const weekInRow = absoluteWeek % this.layout.weeksPerRow;
+
 
             this.renderCell(d, currentRow, weekInRow, dayOfWeek);
             this.renderDateLabels(d, currentRow, weekInRow, dayOfWeek, yearMarkers, monthMarkers);
@@ -247,6 +267,7 @@ export class HeatmapRenderer {
         const x = weekInRow * this.layout.cellSize;
         const y = currentRow * (this.layout.singleRowHeight + (this.layout.rowSpacing || 0)) +
                   dayOfWeek * this.layout.cellSize;
+
 
         rect.setAttribute('x', x);
         rect.setAttribute('y', y);
