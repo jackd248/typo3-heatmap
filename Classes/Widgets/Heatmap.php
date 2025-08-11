@@ -26,7 +26,9 @@ namespace KonradMichalik\Typo3HeatmapWidget\Widgets;
 use KonradMichalik\Typo3HeatmapWidget\Configuration;
 use KonradMichalik\Typo3HeatmapWidget\Utility\ViewFactoryHelper;
 use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Page\JavaScriptModuleInstruction;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
 use TYPO3\CMS\Dashboard\Widgets\ButtonProviderInterface;
 use TYPO3\CMS\Dashboard\Widgets\JavaScriptInterface;
@@ -54,6 +56,7 @@ class Heatmap implements WidgetInterface, AdditionalCssInterface, JavaScriptInte
                 'records' => $this->dataProvider->getItems(),
                 'button' => $this->buttonProvider,
                 'options' => $this->options,
+                'version' => GeneralUtility::makeInstance(Typo3Version::class)->getMajorVersion(),
             ]
         );
     }
