@@ -119,7 +119,7 @@ class ContentChangesDataProviderTest extends TestCase
             ->willReturnCallback(function (int $value, int|ParameterType $type = null): string {
                 // Handle both old int constants and new ParameterType enum
                 $isIntegerType = $type === ParameterType::INTEGER || $type === \PDO::PARAM_INT;
-                
+
                 if ($value === 1 && $isIntegerType) {
                     return ':param1';
                 }

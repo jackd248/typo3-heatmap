@@ -81,9 +81,9 @@ class HeatmapTest extends TestCase
                 'Cannot instantiate interface',
                 'Too few arguments to function',
                 'RenderingContextFactory::__construct()',
-                'ViewFactoryInterface'
+                'ViewFactoryInterface',
             ];
-            
+
             $foundExpectedError = false;
             foreach ($expectedErrors as $expectedError) {
                 if (str_contains($errorMessage, $expectedError)) {
@@ -91,8 +91,9 @@ class HeatmapTest extends TestCase
                     break;
                 }
             }
-            
-            self::assertTrue($foundExpectedError, 
+
+            self::assertTrue(
+                $foundExpectedError,
                 "Expected one of the TYPO3 dependency errors, but got: {$errorMessage}"
             );
         }
