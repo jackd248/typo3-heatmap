@@ -53,6 +53,7 @@ Download the zip file from [TYPO3 extension repository (TER)](https://extensions
 1. Install the extension.
 2. Add the "Content changes" widget to your dashboard via the "System Information" tab.
 3. Display the heatmap within your dashboard.
+
 ![Show widget in the dashboard](Documentation/Images/widget.jpg "Show widget in the dashboard")
 
 ### Custom Heatmap Widgets
