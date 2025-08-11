@@ -32,7 +32,7 @@ Create a custom data providers for the Heatmap Widget to visualize your own data
 
 ## Implementation
 
-### 1. Data Provider Class
+### Data Provider Class
 
 ```php
 <?php
@@ -53,7 +53,7 @@ class CustomDataProvider implements ListDataProviderInterface
 }
 ```
 
-### 2. Services Configuration
+### Services Configuration
 
 ```yaml
 services:
