@@ -37,8 +37,6 @@ This extension provides a dashboard widget to display a (GitHub lookalike) contr
 [![Packagist](https://img.shields.io/packagist/v/konradmichalik/typo3-heatmap-widget?label=version&logo=packagist)](https://packagist.org/packages/konradmichalik/typo3-heatmap-widget)
 [![Packagist Downloads](https://img.shields.io/packagist/dt/konradmichalik/typo3-heatmap-widget?color=brightgreen)](https://packagist.org/packages/konradmichalik/typo3-heatmap-widget)
 
-ToDo
-
 ``` bash
 composer require konradmichalik/typo3-heatmap-widget
 ```
@@ -48,7 +46,7 @@ composer require konradmichalik/typo3-heatmap-widget
 [![TER version](https://typo3-badges.dev/badge/typo3_heatmap_widget/version/shields.svg)](https://extensions.typo3.org/extension/typo3_heatmap_widget)
 [![TER downloads](https://typo3-badges.dev/badge/typo3_heatmap_widget/downloads/shields.svg)](https://extensions.typo3.org/extension/typo3_heatmap_widget)
 
-ToDo
+Download the zip file from [TYPO3 extension repository (TER)](https://extensions.typo3.org/extension/typo3_heatmap_widget).
 
 ## ⚡ Usage
 
