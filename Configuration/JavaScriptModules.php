@@ -22,6 +22,6 @@
 return [
     'dependencies' => ['core', 'backend'],
     'imports' => [
-        '@KonradMichalik/Typo3HeatmapWidget/' => 'EXT:typo3_heatmap_widget/Resources/Public/JavaScript/',
+        '@KonradMichalik/Typo3HeatmapWidget/' => 'EXT:typo3_heatmap_widget/Resources/Public/JavaScript/dist/',
     ],
 ];
