@@ -27,22 +27,6 @@ services:
                 height: 'medium'
                 width: 'medium'
 
-    contentChangesHeatmapMonth:
-      class: 'KonradMichalik\Typo3HeatmapWidget\Widgets\Heatmap'
-      arguments:
-        $dataProvider: '@KonradMichalik\Typo3HeatmapWidget\Widgets\Provider\ContentChangesDataProvider'
-        $options:
-          dateRangeMode: 'auto'
-      tags:
-        -   name: dashboard.widget
-            identifier: 'contentChangesHeatmapSmall'
-            groupNames: 'systemInfo'
-            title: 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:widgets.contentChangesSmall.title'
-            description: 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:widgets.contentChangesSmall.description'
-            iconIdentifier: 'heatmap-widget'
-            height: 'medium'
-            width: 'small'
-
     errorHeatmap:
         class: 'KonradMichalik\Typo3HeatmapWidget\Widgets\Heatmap'
         arguments:

@@ -8,12 +8,6 @@
 			<trans-unit id="widgets.contentChanges.description">
 				<source>Displays a heatmap of content changes over a period.</source>
 			</trans-unit>
-			<trans-unit id="widgets.contentChangesSmall.title">
-				<source>Content changes (small)</source>
-			</trans-unit>
-			<trans-unit id="widgets.contentChangesSmall.description">
-				<source>Displays a heatmap of content changes over a period in a small widget.</source>
-			</trans-unit>
 			<trans-unit id="widgets.error.title">
 				<source>Errors</source>
 			</trans-unit>
