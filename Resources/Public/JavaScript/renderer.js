@@ -229,21 +229,21 @@ export class HeatmapRenderer {
         // Calculate the Sunday of the start and end dates for proper week-based calculation
         const startDateSunday = new Date(this.startDate);
         startDateSunday.setDate(startDateSunday.getDate() - this.startDate.getDay());
-        
+
         const endDateSunday = new Date(this.endDate);
         endDateSunday.setDate(endDateSunday.getDate() - this.endDate.getDay());
-        
+
         // Calculate total weeks based on Sunday-to-Sunday spans
         const totalWeeks = Math.round((endDateSunday - startDateSunday) / (7 * 24 * 60 * 60 * 1000)) + 1;
 
         this.allDates.forEach((d, index) => {
             const dayOfWeek = d.date.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
-            
+
             // Calculate which Sunday-based week this date belongs to
             // First, find the Sunday of the week containing this date
             const currentDateSunday = new Date(d.date);
             currentDateSunday.setDate(currentDateSunday.getDate() - dayOfWeek);
-            
+
             // Calculate how many weeks this date's Sunday is from the END date's Sunday (GitHub style: newest right)
             const weeksFromEnd = Math.round((endDateSunday - currentDateSunday) / (7 * 24 * 60 * 60 * 1000));
             const absoluteWeek = totalWeeks - 1 - weeksFromEnd;
