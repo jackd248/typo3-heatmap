@@ -61,8 +61,8 @@ class ErrorDataProviderTest extends TestCase
     public function testGetItemsReturnsExpectedData(): void
     {
         $expectedData = [
-            ['change_date' => '2023-12-01', 'changes_count' => 2],
-            ['change_date' => '2023-12-02', 'changes_count' => 1],
+            ['date' => '2023-12-01', 'count' => 2,  'link' => '?constraint%5BtimeFrame%5D=30&constraint%5BmanualDateStart%5D=2023-12-01T00%3A00%3A00Z&constraint%5BmanualDateStop%5D=2023-12-01T23%3A59%3A59Z&constraint%5Bchannel%5D=php'],
+            ['date' => '2023-12-02', 'count' => 1,  'link' => '?constraint%5BtimeFrame%5D=30&constraint%5BmanualDateStart%5D=2023-12-02T00%3A00%3A00Z&constraint%5BmanualDateStop%5D=2023-12-02T23%3A59%3A59Z&constraint%5Bchannel%5D=php'],
         ];
 
         $this->connectionPool
@@ -83,13 +83,13 @@ class ErrorDataProviderTest extends TestCase
         $this->queryBuilder
             ->expects(self::once())
             ->method('selectLiteral')
-            ->with('DATE(FROM_UNIXTIME(tstamp)) AS change_date')
+            ->with('DATE(FROM_UNIXTIME(tstamp)) AS date')
             ->willReturn($this->queryBuilder);
 
         $this->queryBuilder
             ->expects(self::once())
             ->method('addSelectLiteral')
-            ->with('COUNT(*) AS changes_count')
+            ->with('COUNT(*) AS count')
             ->willReturn($this->queryBuilder);
 
         $this->queryBuilder
@@ -124,13 +124,13 @@ class ErrorDataProviderTest extends TestCase
         $this->queryBuilder
             ->expects(self::once())
             ->method('groupBy')
-            ->with('change_date')
+            ->with('date')
             ->willReturn($this->queryBuilder);
 
         $this->queryBuilder
             ->expects(self::once())
             ->method('orderBy')
-            ->with('change_date', 'DESC')
+            ->with('date', 'DESC')
             ->willReturn($this->queryBuilder);
 
         $this->queryBuilder

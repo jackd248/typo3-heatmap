@@ -61,8 +61,8 @@ class ContentChangesDataProviderTest extends TestCase
     public function testGetItemsReturnsExpectedData(): void
     {
         $expectedData = [
-            ['change_date' => '2023-12-01', 'changes_count' => 5],
-            ['change_date' => '2023-12-02', 'changes_count' => 3],
+            ['date' => '2023-12-01', 'count' => 5, 'link' => '?constraint%5BtimeFrame%5D=30&constraint%5BmanualDateStart%5D=2023-12-01T00%3A00%3A00Z&constraint%5BmanualDateStop%5D=2023-12-01T23%3A59%3A59Z&constraint%5Bchannel%5D=content'],
+            ['date' => '2023-12-02', 'count' => 3, 'link' => '?constraint%5BtimeFrame%5D=30&constraint%5BmanualDateStart%5D=2023-12-02T00%3A00%3A00Z&constraint%5BmanualDateStop%5D=2023-12-02T23%3A59%3A59Z&constraint%5Bchannel%5D=content'],
         ];
 
         $this->connectionPool
@@ -83,13 +83,13 @@ class ContentChangesDataProviderTest extends TestCase
         $this->queryBuilder
             ->expects(self::once())
             ->method('selectLiteral')
-            ->with('DATE(FROM_UNIXTIME(tstamp)) AS change_date')
+            ->with('DATE(FROM_UNIXTIME(tstamp)) AS date')
             ->willReturn($this->queryBuilder);
 
         $this->queryBuilder
             ->expects(self::once())
             ->method('addSelectLiteral')
-            ->with('COUNT(*) AS changes_count')
+            ->with('COUNT(*) AS count')
             ->willReturn($this->queryBuilder);
 
         $this->queryBuilder
@@ -121,7 +121,7 @@ class ContentChangesDataProviderTest extends TestCase
             ->method('createNamedParameter')
             ->willReturnCallback(function (int $value, int|ParameterType $type = null): string {
                 // Handle both old int constants and new ParameterType enum
-                $isIntegerType = $type === ParameterType::INTEGER || $type === \TYPO3\CMS\Core\Database\Connection::PARAM_INT;
+                $isIntegerType = $type === ParameterType::INTEGER;
 
                 if ($value === 1 && $isIntegerType) {
                     return ':param1';
@@ -141,13 +141,13 @@ class ContentChangesDataProviderTest extends TestCase
         $this->queryBuilder
             ->expects(self::once())
             ->method('groupBy')
-            ->with('change_date')
+            ->with('date')
             ->willReturn($this->queryBuilder);
 
         $this->queryBuilder
             ->expects(self::once())
             ->method('orderBy')
-            ->with('change_date', 'DESC')
+            ->with('date', 'DESC')
             ->willReturn($this->queryBuilder);
 
         $this->queryBuilder
