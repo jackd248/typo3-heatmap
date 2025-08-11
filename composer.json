@@ -1,6 +1,6 @@
 {
 	"name": "konradmichalik/typo3-heatmap-widget",
-	"description": "A widget for the dashboard to display content changes over a period.",
+	"description": "TYPO3 dashboard widget to display a (GitHub lookalike) contribution heatmap of e.g. content changes.",
 	"license": [
 		"GPL-2.0-or-later"
 	],

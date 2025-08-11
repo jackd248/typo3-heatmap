@@ -21,11 +21,11 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Heatmap Widget',
-    'description' => '',
+    'description' => 'Dashboard widget to display a (GitHub lookalike) contribution heatmap of e.g. content changes.',
     'category' => 'module',
     'author' => 'Konrad Michalik',
     'author_email' => 'hej@konradmichalik.dev',
-    'state' => 'stable',
+    'state' => 'alpha',
     'version' => '0.1.0',
     'constraints' => [
         'depends' => [
