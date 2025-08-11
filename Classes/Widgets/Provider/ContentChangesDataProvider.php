@@ -2,20 +2,39 @@
 
 declare(strict_types=1);
 
-namespace Kmi\Typo3HeatmapWidget\Widgets\Provider;
+/*
+ * This file is part of the TYPO3 CMS extension "typo3_heatmap_widget".
+ *
+ * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+namespace KonradMichalik\Typo3HeatmapWidget\Widgets\Provider;
+
+use Doctrine\DBAL\ParameterType;
 use TYPO3\CMS\Dashboard\Widgets\ListDataProviderInterface;
 
 class ContentChangesDataProvider implements ListDataProviderInterface
 {
+    public function __construct(private readonly \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool) {}
     /**
      * @throws \Doctrine\DBAL\Exception
      */
     public function getItems(): array
     {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('sys_log');
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable('sys_log');
         $queryBuilder->getRestrictions()->removeAll();
 
         $query = $queryBuilder
@@ -23,8 +42,8 @@ class ContentChangesDataProvider implements ListDataProviderInterface
             ->addSelectLiteral('COUNT(*) AS changes_count')
             ->from('sys_log')
             ->where(
-                $queryBuilder->expr()->eq('type', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT)),
-                $queryBuilder->expr()->eq('error', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT))
+                $queryBuilder->expr()->eq('type', $queryBuilder->createNamedParameter(1, ParameterType::INTEGER)),
+                $queryBuilder->expr()->eq('error', $queryBuilder->createNamedParameter(0, ParameterType::INTEGER))
             )
             ->groupBy('change_date')
             ->orderBy('change_date', 'DESC');
