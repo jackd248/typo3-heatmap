@@ -28,6 +28,7 @@ use KonradMichalik\Typo3HeatmapWidget\Utility\ViewFactoryHelper;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Page\JavaScriptModuleInstruction;
+use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
 use TYPO3\CMS\Dashboard\Widgets\ButtonProviderInterface;
@@ -55,6 +56,7 @@ class Heatmap implements WidgetInterface, RequestAwareWidgetInterface, Additiona
 
     public function renderWidgetContent(): string
     {
+        $language = $this->request->getAttribute('language', 'en-GB');
         return ViewFactoryHelper::renderView(
             'Heatmap.html',
             [
@@ -63,7 +65,7 @@ class Heatmap implements WidgetInterface, RequestAwareWidgetInterface, Additiona
                 'button' => $this->buttonProvider,
                 'options' => $this->getOptions(),
                 'version' => GeneralUtility::makeInstance(Typo3Version::class)->getMajorVersion(),
-                'locale' => $this->request->getAttribute('language', 'en-GB')->getLocale(),
+                'locale' => $language instanceof SiteLanguage ? $language->getLocale() : $language,
             ]
         );
     }
