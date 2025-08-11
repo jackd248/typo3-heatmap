@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the TYPO3 CMS extension "typo3_heatmap_widget".
  *
- * Copyright (C) 2023-2025 Konrad Michalik <hej@konradmichalik.dev>
+ * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ $header = PhpCsFixerConfig\Rules\Header::create(
     Configuration::EXT_KEY,
     PhpCsFixerConfig\Package\Type::TYPO3Extension,
     PhpCsFixerConfig\Package\Author::create('Konrad Michalik', 'hej@konradmichalik.dev'),
-    PhpCsFixerConfig\Package\CopyrightRange::from(2023),
+    PhpCsFixerConfig\Package\CopyrightRange::from(2025),
     PhpCsFixerConfig\Package\License::GPL2OrLater,
 );
 

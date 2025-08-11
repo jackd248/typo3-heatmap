@@ -3,7 +3,7 @@
 /*
  * This file is part of the TYPO3 CMS extension "typo3_heatmap_widget".
  *
- * Copyright (C) 2023-2025 Konrad Michalik <hej@konradmichalik.dev>
+ * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,18 +20,17 @@
  */
 
 $EM_CONF[$_EXTKEY] = [
-    'title' => 'Recent Updates Widget',
-    'description' => 'A widget for the dashboard to display new and recently updated elements.',
+    'title' => 'Heatmap Widget',
+    'description' => '',
     'category' => 'module',
     'author' => 'Konrad Michalik',
-    'author_email' => 'konrad.michalik@xima.de',
-    'author_company' => 'XIMA MEDIA GmbH',
+    'author_email' => 'hej@konradmichalik.dev',
     'state' => 'stable',
-    'version' => '1.0.1',
+    'version' => '0.1.0',
     'constraints' => [
         'depends' => [
-            'php' => '8.1.0-8.4.99',
-            'typo3' => '11.5.0-13.4.99',
+            'php' => '8.2.0-8.4.99',
+            'typo3' => '12.4.0-13.4.99',
         ],
         'conflicts' => [],
         'suggests' => [],
