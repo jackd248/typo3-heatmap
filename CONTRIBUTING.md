@@ -20,6 +20,19 @@ ddev start
 ddev composer install
 ```
 
+## Frontend building
+
+```bash
+# Build assets (development mode)
+ddev npm run build
+
+# Watch for changes (development mode)
+ddev npm run watch
+
+# Build assets
+ddev npm run build:prod 
+```
+
 ## Run linters
 
 ```bash
