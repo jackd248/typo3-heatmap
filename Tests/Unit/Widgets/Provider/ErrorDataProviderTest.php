@@ -61,8 +61,8 @@ class ErrorDataProviderTest extends TestCase
     public function testGetItemsReturnsExpectedData(): void
     {
         $expectedData = [
-            ['date' => '2023-12-01', 'count' => 2,  'link' => '?constraint%5BtimeFrame%5D=30&constraint%5BmanualDateStart%5D=2023-12-01T00%3A00%3A00Z&constraint%5BmanualDateStop%5D=2023-12-01T23%3A59%3A59Z&constraint%5Bchannel%5D=php'],
-            ['date' => '2023-12-02', 'count' => 1,  'link' => '?constraint%5BtimeFrame%5D=30&constraint%5BmanualDateStart%5D=2023-12-02T00%3A00%3A00Z&constraint%5BmanualDateStop%5D=2023-12-02T23%3A59%3A59Z&constraint%5Bchannel%5D=php'],
+            ['date' => '2023-12-01', 'count' => 2, 'link' => '?constraint%5BtimeFrame%5D=30&constraint%5BmanualDateStart%5D=2023-12-01T00%3A00%3A00Z&constraint%5BmanualDateStop%5D=2023-12-01T23%3A59%3A59Z&constraint%5Bchannel%5D=php'],
+            ['date' => '2023-12-02', 'count' => 1, 'link' => '?constraint%5BtimeFrame%5D=30&constraint%5BmanualDateStart%5D=2023-12-02T00%3A00%3A00Z&constraint%5BmanualDateStop%5D=2023-12-02T23%3A59%3A59Z&constraint%5Bchannel%5D=php'],
         ];
 
         $this->connectionPool
