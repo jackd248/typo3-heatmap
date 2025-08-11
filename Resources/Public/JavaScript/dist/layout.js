@@ -39,7 +39,7 @@ export class HeatmapLayoutCalculator {
         if (this.config.showMonthLabels)
             labelHeight += 20; // Month labels above
         if (this.config.showYearLabels)
-            labelHeight += 30; // Year labels below  
+            labelHeight += 30; // Year labels below
         if (this.config.showLegend)
             labelHeight += 35; // Legend at bottom
         // Use much less padding for maximum height utilization
@@ -67,7 +67,7 @@ export class HeatmapLayoutCalculator {
                 }
             }
         }
-        // Apply reasonable bounds - allow much larger cells for dashboard widgets  
+        // Apply reasonable bounds - allow much larger cells for dashboard widgets
         cellSize = Math.max(this.config.minCellSize, Math.min(40, cellSize)); // Max 40px for full height utilization
         // Debug logging for height utilization
         console.log(`Layout Debug:`, {

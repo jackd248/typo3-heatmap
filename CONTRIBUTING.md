@@ -16,8 +16,11 @@ cd typo3-heatmap-widget
 # Start the project with DDEV
 ddev start
 
-# Install dependencies
+# Install composer dependencies
 ddev composer install
+
+# Install npm dependencies
+ddev npm install
 ```
 
 ## Frontend building

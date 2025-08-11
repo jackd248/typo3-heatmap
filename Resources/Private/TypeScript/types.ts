@@ -3,9 +3,14 @@
  */
 
 export interface HeatmapData {
-  change_date: string;
-  changes_count: number;
-  date?: Date;
+  date: string;
+  count: number;
+  link?: string;
+  dateObject?: Date;
+
+  // Legacy support - will be removed in future version
+  change_date?: string;
+  changes_count?: number;
 }
 
 export interface HeatmapOptions {

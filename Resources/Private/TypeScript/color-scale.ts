@@ -1,6 +1,6 @@
 /**
  * Module: @KonradMichalik/Typo3HeatmapWidget/color-scale
- * 
+ *
  * Color scale calculator for heatmap visualization
  */
 
@@ -24,9 +24,9 @@ export class ColorScale {
       return;
     }
 
-    // Find maximum value and calculate better distribution
-    const values = data.map(d => d.changes_count).filter(v => v > 0).sort((a, b) => a - b);
-    this.maxValue = Math.max(...data.map(d => d.changes_count));
+    // Find maximum value and calculate better distribution - support legacy field names
+    const values = data.map(d => this.getCountValue(d)).filter(v => v > 0).sort((a, b) => a - b);
+    this.maxValue = Math.max(...data.map(d => this.getCountValue(d)));
 
     // Better thresholds for low-value ranges (0-8 typical case)
     if (this.maxValue <= 8) {
@@ -88,5 +88,10 @@ export class ColorScale {
 
   public getMaxValue(): number {
     return this.maxValue;
+  }
+
+  private getCountValue(data: HeatmapData): number {
+    // Support new format first, fall back to legacy
+    return data.count ?? data.changes_count ?? 0;
   }
 }

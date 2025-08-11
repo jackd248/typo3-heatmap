@@ -3,25 +3,25 @@
   "version": "1.0.0",
   "description": "TYPO3 extension providing GitHub-style heatmap widgets",
   "scripts": {
-    "build": "tsc",
-    "build:prod": "npm run clean && tsc --sourceMap false",
-    "watch": "tsc --watch",
-    "clean": "rm -rf Resources/Public/JavaScript/dist",
-    "dev": "npm run clean && npm run watch",
-    "prepare": "npm run build"
+	"build": "tsc",
+	"build:prod": "npm run clean && tsc --sourceMap false",
+	"watch": "tsc --watch",
+	"clean": "rm -rf Resources/Public/JavaScript/dist",
+	"dev": "npm run clean && npm run watch",
+	"prepare": "npm run build"
   },
   "dependencies": {},
   "devDependencies": {
-    "typescript": "^5.2.2",
-    "@types/node": "^20.8.0"
+	"typescript": "^5.2.2",
+	"@types/node": "^20.8.0"
   },
   "keywords": [
-    "typo3",
-    "heatmap",
-    "github",
-    "contribution",
-    "dashboard",
-    "typescript"
+	"typo3",
+	"heatmap",
+	"github",
+	"contribution",
+	"dashboard",
+	"typescript"
   ],
   "author": "Konrad Michalik",
   "license": "GPL-3.0-or-later"

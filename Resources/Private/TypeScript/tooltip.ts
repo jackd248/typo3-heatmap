@@ -1,6 +1,6 @@
 /**
  * Module: @KonradMichalik/Typo3HeatmapWidget/tooltip
- * 
+ *
  * SVG tooltip component for heatmap cells
  */
 
@@ -49,7 +49,7 @@ export class HeatmapTooltip {
 
   public show(x: number, y: number, content: string, containerWidth: number, containerHeight: number): void {
     this.text.textContent = content;
-    
+
     // Calculate text dimensions
     const textBBox = this.text.getBBox();
     const padding = 8;

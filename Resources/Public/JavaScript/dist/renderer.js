@@ -54,15 +54,25 @@ export class HeatmapRenderer {
         if (!this.dateRange) {
             throw new Error('Date range calculation failed');
         }
-        // Create date map
-        const dateMap = new Map(this.data.map(d => [d.change_date, d.changes_count]));
+        // Create date map with link support - support legacy field names
+        const dateMap = new Map(this.data.map(d => {
+            const dateStr = d.date || d.change_date || '';
+            const count = d.count ?? d.changes_count ?? 0;
+            const link = d.link;
+            return [dateStr, { count, link }];
+        }));
         this.allDates = [];
         for (let d = new Date(this.dateRange.start); d <= this.dateRange.end; d.setDate(d.getDate() + 1)) {
             const dateString = d.toISOString().split('T')[0];
+            const dayData = dateMap.get(dateString);
             this.allDates.push({
+                date: dateString,
+                count: dayData?.count || 0,
+                link: dayData?.link,
+                dateObject: new Date(d),
+                // Legacy support
                 change_date: dateString,
-                changes_count: dateMap.get(dateString) || 0,
-                date: new Date(d)
+                changes_count: dayData?.count || 0
             });
         }
     }
@@ -75,7 +85,8 @@ export class HeatmapRenderer {
             this.dateRange = { start, end };
             return;
         }
-        const dates = this.data.map(d => new Date(d.change_date)).sort((a, b) => a.getTime() - b.getTime());
+        // Support legacy field names
+        const dates = this.data.map(d => new Date(d.date || d.change_date || '')).sort((a, b) => a.getTime() - b.getTime());
         const earliestData = dates[0];
         const latestData = dates[dates.length - 1];
         let start, end;
@@ -162,11 +173,11 @@ export class HeatmapRenderer {
         // Calculate total weeks based on week start boundaries
         const totalWeeks = Math.round((endWeekStart.getTime() - startWeekStart.getTime()) / (7 * 24 * 60 * 60 * 1000)) + 1;
         this.allDates.forEach((d) => {
-            if (!this.dateRange || !d.date)
+            if (!this.dateRange || !d.dateObject)
                 return;
-            const dayOfWeek = this.getDayOfWeekIndex(d.date); // 0-6 based on week start configuration
+            const dayOfWeek = this.getDayOfWeekIndex(d.dateObject); // 0-6 based on week start configuration
             // Find the week start of the week containing this date
-            const currentWeekStart = this.getWeekStart(d.date);
+            const currentWeekStart = this.getWeekStart(d.dateObject);
             // Calculate how many weeks this date's week start is from the START date's week start
             const weeksFromStart = Math.round((currentWeekStart.getTime() - startWeekStart.getTime()) / (7 * 24 * 60 * 60 * 1000));
             // Skip dates that are outside our calculated range
@@ -204,6 +215,9 @@ export class HeatmapRenderer {
     renderCell(data, weekIndex, dayOfWeek) {
         if (!this.mainGroup)
             return;
+        const count = data.count ?? data.changes_count ?? 0;
+        // Create container for potential click handling
+        const cellGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
         const x = weekIndex * this.layout.cellSize;
         const y = dayOfWeek * this.layout.cellSize;
@@ -213,17 +227,24 @@ export class HeatmapRenderer {
         rect.setAttribute('height', (this.layout.cellSize - 1).toString());
         rect.setAttribute('rx', '2');
         rect.setAttribute('ry', '2');
-        rect.setAttribute('fill', this.colorScale.getColor(data.changes_count));
+        rect.setAttribute('fill', this.colorScale.getColor(count));
         rect.setAttribute('stroke', 'rgba(27, 31, 35, 0.06)');
         rect.setAttribute('stroke-width', '1');
-        this.addCellInteractivity(rect, data);
-        this.mainGroup.appendChild(rect);
+        // Add cursor pointer if link exists
+        if (data.link) {
+            rect.style.cursor = 'pointer';
+            cellGroup.style.cursor = 'pointer';
+        }
+        cellGroup.appendChild(rect);
+        this.addCellInteractivity(cellGroup, rect, data);
+        this.mainGroup.appendChild(cellGroup);
     }
-    addCellInteractivity(rect, data) {
+    addCellInteractivity(cellGroup, rect, data) {
         if (!this.tooltip)
             return;
         const tooltipContent = this.formatTooltipContent(data);
-        rect.addEventListener('mouseover', () => {
+        // Mouse events
+        const showTooltip = () => {
             if (!this.tooltip)
                 return;
             const rectX = parseFloat(rect.getAttribute('x') || '0') + this.layout.offsetX;
@@ -232,29 +253,46 @@ export class HeatmapRenderer {
             rect.setAttribute('stroke', '#1f2328');
             rect.setAttribute('stroke-width', '2');
             rect.style.filter = 'brightness(1.1)';
-        });
-        rect.addEventListener('mouseout', () => {
+        };
+        const hideTooltip = () => {
             if (!this.tooltip)
                 return;
             this.tooltip.hide();
             rect.setAttribute('stroke', 'rgba(27, 31, 35, 0.06)');
             rect.setAttribute('stroke-width', '1');
             rect.style.filter = 'none';
-        });
+        };
+        cellGroup.addEventListener('mouseover', showTooltip);
+        cellGroup.addEventListener('mouseout', hideTooltip);
+        // Click handler for links
+        if (data.link) {
+            cellGroup.addEventListener('click', (event) => {
+                event.preventDefault();
+                // Open the link directly (now using regular URLs)
+                if (data.link) {
+                    window.open(data.link, '_blank', 'noopener,noreferrer');
+                }
+            });
+        }
     }
     formatTooltipContent(data) {
-        if (!data.date)
+        if (!data.dateObject)
             return '';
-        const date = data.date.toLocaleDateString(this.config.locale, {
+        const date = data.dateObject.toLocaleDateString(this.config.locale, {
             day: '2-digit',
             month: '2-digit',
             year: 'numeric'
         });
-        const count = data.changes_count;
+        const count = data.count ?? data.changes_count ?? 0;
         const word = this.config.locale.startsWith('de')
             ? (count === 1 ? 'Änderung' : 'Änderungen')
             : (count === 1 ? 'change' : 'changes');
-        return `${date}: ${count} ${word}`;
+        let tooltip = `${date}: ${count} ${word}`;
+        // Add click hint if link exists
+        if (data.link) {
+            tooltip += `\n↗`;
+        }
+        return tooltip;
     }
     renderLabels() {
         this.renderMonthLabels();

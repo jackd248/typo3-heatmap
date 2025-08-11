@@ -2,9 +2,12 @@
  * Type definitions for TYPO3 Heatmap Widget
  */
 export interface HeatmapData {
-    change_date: string;
-    changes_count: number;
-    date?: Date;
+    date: string;
+    count: number;
+    link?: string;
+    dateObject?: Date;
+    change_date?: string;
+    changes_count?: number;
 }
 export interface HeatmapOptions {
     duration?: number;

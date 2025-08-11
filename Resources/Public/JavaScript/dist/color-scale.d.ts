@@ -14,5 +14,6 @@ export declare class ColorScale {
     getColor(value: number): string;
     getThresholds(): number[];
     getMaxValue(): number;
+    private getCountValue;
 }
 //# sourceMappingURL=color-scale.d.ts.map

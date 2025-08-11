@@ -24,11 +24,18 @@ declare(strict_types=1);
 namespace KonradMichalik\Typo3HeatmapWidget\Widgets\Provider;
 
 use Doctrine\DBAL\ParameterType;
+use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
+use TYPO3\CMS\Backend\Routing\UriBuilder;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Dashboard\Widgets\ListDataProviderInterface;
 
 class ContentChangesDataProvider implements ListDataProviderInterface
 {
-    public function __construct(private readonly \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool) {}
+    public function __construct(
+        private readonly ConnectionPool $connectionPool,
+        private readonly UriBuilder $uriBuilder
+    ) {}
+
     /**
      * @throws \Doctrine\DBAL\Exception
      */
@@ -38,16 +45,35 @@ class ContentChangesDataProvider implements ListDataProviderInterface
         $queryBuilder->getRestrictions()->removeAll();
 
         $query = $queryBuilder
-            ->selectLiteral('DATE(FROM_UNIXTIME(tstamp)) AS change_date')
-            ->addSelectLiteral('COUNT(*) AS changes_count')
+            ->selectLiteral('DATE(FROM_UNIXTIME(tstamp)) AS date')
+            ->addSelectLiteral('COUNT(*) AS count')
             ->from('sys_log')
             ->where(
                 $queryBuilder->expr()->eq('type', $queryBuilder->createNamedParameter(1, ParameterType::INTEGER)),
                 $queryBuilder->expr()->eq('error', $queryBuilder->createNamedParameter(0, ParameterType::INTEGER))
             )
-            ->groupBy('change_date')
-            ->orderBy('change_date', 'DESC');
+            ->groupBy('date')
+            ->orderBy('date', 'DESC');
 
-        return $query->executeQuery()->fetchAllAssociative();
+        return $this->enrichItemsWithLinks($query->executeQuery()->fetchAllAssociative());
+    }
+
+    /**
+     * @throws RouteNotFoundException
+     */
+    private function enrichItemsWithLinks(array $items): array
+    {
+        foreach ($items as &$item) {
+            $startDate = $item['date'] . 'T00:00:00Z';
+            $endDate   = $item['date'] . 'T23:59:59Z';
+
+            $baseUrl = (string)$this->uriBuilder->buildUriFromRoute('system_BelogLog');
+            $item['link'] = $baseUrl .
+                '?constraint%5BtimeFrame%5D=30' .
+                '&constraint%5BmanualDateStart%5D=' . urlencode($startDate) .
+                '&constraint%5BmanualDateStop%5D=' . urlencode($endDate) .
+                '&constraint%5Bchannel%5D=content';
+        }
+        return $items;
     }
 }

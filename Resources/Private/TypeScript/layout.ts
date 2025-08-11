@@ -60,9 +60,9 @@ export class HeatmapLayoutCalculator {
     // Calculate label height more precisely
     let labelHeight = 0;
     if (this.config.showMonthLabels) labelHeight += 20; // Month labels above
-    if (this.config.showYearLabels) labelHeight += 30; // Year labels below  
+    if (this.config.showYearLabels) labelHeight += 30; // Year labels below
     if (this.config.showLegend) labelHeight += 35; // Legend at bottom
-    
+
     // Use much less padding for maximum height utilization
     const verticalPadding = 10; // Minimal padding
     const availableHeight = this.containerHeight - labelHeight - (verticalPadding * 2);
@@ -70,33 +70,33 @@ export class HeatmapLayoutCalculator {
 
     // Calculate cell size based on both width and height constraints
     const optimalCellSizeByWidth = Math.floor(availableWidth / weekCount);
-    
+
     // Try to use height-optimized cell size first
     let cellSize = optimalCellSizeByHeight;
-    
+
     // Check if width allows this cell size - if not, we need to adjust
     const requiredWidth = weekCount * cellSize;
     if (requiredWidth > availableWidth) {
       // Width is limiting - use width-based size but prefer larger cells
       cellSize = optimalCellSizeByWidth;
-      
+
       // If the difference is small, slightly reduce weeks to get bigger cells
-      if (optimalCellSizeByHeight > optimalCellSizeByWidth && 
+      if (optimalCellSizeByHeight > optimalCellSizeByWidth &&
           optimalCellSizeByHeight - optimalCellSizeByWidth <= 10) {
         // Try with 90% of weeks to see if we can get bigger cells
         const reducedWeeks = Math.floor(weekCount * 0.9);
         const betterCellSize = Math.floor(availableWidth / reducedWeeks);
-        
+
         if (betterCellSize >= optimalCellSizeByHeight * 0.9) {
           console.log(`Layout Optimization: Reducing weeks from ${weekCount} to ${reducedWeeks} for better cell size ${betterCellSize}px`);
           // This should trigger a duration recalculation, but for now use what we have
         }
       }
     }
-    
-    // Apply reasonable bounds - allow much larger cells for dashboard widgets  
+
+    // Apply reasonable bounds - allow much larger cells for dashboard widgets
     cellSize = Math.max(this.config.minCellSize, Math.min(40, cellSize)); // Max 40px for full height utilization
-    
+
     // Debug logging for height utilization
     console.log(`Layout Debug:`, {
       containerHeight: this.containerHeight,
