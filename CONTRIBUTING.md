@@ -10,8 +10,8 @@ Thank you for considering contributing to this project! Every contribution is we
 
 ```bash
 # Clone repository
-git clone https://github.com/xima-media/xima-typo3-recent-updates.git
-cd xima-typo3-recent-updates
+git clone https://github.com/jackd248/typo3-heatmap-widget.git
+cd typo3-heatmap-widget
 
 # Start the project with DDEV
 ddev start
@@ -72,7 +72,6 @@ For testing the extension, you need to set up the TYPO3 instances.
 ddev install all
 
 # Or install specific TYPO3 versions
-ddev install 11
 ddev install 12
 ddev install 13
 
