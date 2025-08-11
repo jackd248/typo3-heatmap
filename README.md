@@ -71,4 +71,5 @@ Empty by Chattapat from <a href="https://thenounproject.com/browse/icons/term/em
 
 ## ⭐ License
 
-This project is licensed under [GNU General Public License 3.0 (or later)](LICENSE).
+This project is licensed
+under [GNU General Public License 2.0 (or later)](LICENSE.md).
