@@ -118,10 +118,10 @@ export class HeatmapLayout {
     calculateOffsets() {
         // Calculate effective padding for small widgets
         const effectivePadding = this.isSmallWidget ? Math.max(this.config.containerPadding, 8) : this.config.containerPadding;
-        
+
         // Calculate horizontal offset - simple centering without width recalculation
         const remainingWidth = this.containerWidth - this.heatmapWidth;
-        
+
         if (remainingWidth >= effectivePadding * 2) {
             // Enough space to center horizontally
             this.offsetX = remainingWidth / 2;

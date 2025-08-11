@@ -2,7 +2,7 @@
  * Module: @KonradMichalik/Typo3HeatmapWidget/config
  *
  * Configuration class for heatmap settings
- * 
+ *
  * Date Range Modes:
  * - 'year': Show exactly 365 days from today backwards
  * - 'year-auto': Show current year based on available data
