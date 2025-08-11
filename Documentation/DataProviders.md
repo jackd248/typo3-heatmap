@@ -7,8 +7,8 @@ Create a custom data providers for the Heatmap Widget to visualize your own data
 
 - [Data Format](#data-format)
 - [Implementation](#implementation)
-  - [1. Data Provider Class](#1-data-provider-class)
-  - [2. Services Configuration](#2-services-configuration)
+  - [Data Provider Class](#data-provider-class)
+  - [Services Configuration](#services-configuration)
 - [Summary](#summary)
 
 ## Data Format
