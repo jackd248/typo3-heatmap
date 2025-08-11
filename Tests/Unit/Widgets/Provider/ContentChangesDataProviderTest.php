@@ -116,11 +116,14 @@ class ContentChangesDataProviderTest extends TestCase
         $this->queryBuilder
             ->expects(self::exactly(2))
             ->method('createNamedParameter')
-            ->willReturnCallback(function (int $value, ParameterType $type): string {
-                if ($value === 1 && $type === ParameterType::INTEGER) {
+            ->willReturnCallback(function (int $value, int|ParameterType $type = null): string {
+                // Handle both old int constants and new ParameterType enum
+                $isIntegerType = $type === ParameterType::INTEGER || $type === \PDO::PARAM_INT;
+                
+                if ($value === 1 && $isIntegerType) {
                     return ':param1';
                 }
-                if ($value === 0 && $type === ParameterType::INTEGER) {
+                if ($value === 0 && $isIntegerType) {
                     return ':param2';
                 }
                 return '';
