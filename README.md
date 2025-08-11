@@ -18,6 +18,8 @@ This extension provides a dashboard widget to display a (GitHub lookalike) contr
 > [!warning]
 > This package is in early development stage and may change significantly in the future. Use it at your own risk.
 
+![Content changes heatmap](Documentation/Images/heatmap.jpg "Content changes heatmap")
+
 ## Features
 * Display a heatmap of content changes
 * Display a heatmap of system errors
@@ -52,12 +54,16 @@ ToDo
 1. Install the extension.
 2. Add the "Content changes" widget to your dashboard via the "System Information" tab.
 3. Display the heatmap within your dashboard.
-![Show widget in the dashboard](Documentation/Images/widget.png "Show widget in the dashboard")
+![Show widget in the dashboard](Documentation/Images/widget.jpg "Show widget in the dashboard")
 
 
 ## 🧑‍💻 Contributing
 
 Please have a look at [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+## 💎 Credits
+
+Empty by Chattapat from <a href="https://thenounproject.com/browse/icons/term/empty/" target="_blank" title="Empty Icons">Noun Project</a> (CC BY 3.0)
 
 ## ⭐ License
 

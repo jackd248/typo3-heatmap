@@ -53,3 +53,10 @@ rect:hover {
     filter: brightness(0.9);
     transform-origin: center;
 }
+
+.widget-no-items-found .icon-heatmap-widget-empty {
+    width: 200px;
+    height: 200px;
+    margin: 20px;
+    opacity: 0.2;
+}

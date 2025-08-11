@@ -29,10 +29,9 @@
         </f:then>
         <f:else>
             <div class="row widget-no-items-found">
-                <div class="col-xs-12">
-                    <p>
-                        <f:translate key="widgets.empty" extensionName="Typo3HeatmapWidget"/>
-                    </p>
+                <div class="d-flex flex-column align-items-center justify-content-center">
+                    <core:icon identifier="heatmap-widget-empty" size="large"/>
+                    <f:translate key="widgets.empty" extensionName="Typo3HeatmapWidget"/>
                 </div>
             </div>
         </f:else>
