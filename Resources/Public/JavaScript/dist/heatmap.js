@@ -31,8 +31,7 @@ class Heatmap {
             // Clear any existing content
             container.innerHTML = '';
             // Store renderer instance for potential cleanup
-            const renderer = new HeatmapRenderer(container, data, options);
-            container._heatmapRenderer = renderer;
+            container._heatmapRenderer = new HeatmapRenderer(container, data, options);
         }
         catch (error) {
             console.error('Error initializing heatmap:', error);
@@ -54,6 +53,10 @@ class Heatmap {
             maxCellSize: parseInt(dataset.optionsMaxCellSize || '20'),
             tooltipWidth: parseInt(dataset.optionsTooltipWidth || '120'),
             tooltipHeight: parseInt(dataset.optionsTooltipHeight || '26'),
+            tooltipItemSingular: dataset.optionsTooltipItemSingular || 'change',
+            tooltipItemPlural: dataset.optionsTooltipItemPlural || 'changes',
+            legendLess: dataset.optionsLegendLess || 'Less',
+            legendMore: dataset.optionsLegendMore || 'More',
             weekStartsOnMonday: dataset.optionsWeekStartsOnMonday === 'true'
         };
     }

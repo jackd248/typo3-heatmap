@@ -550,7 +550,6 @@ export class HeatmapRenderer {
         this.mainGroup.appendChild(legendGroup);
     }
 
-
     public destroy(): void {
         if (this.container && this.svg) {
             this.container.removeChild(this.svg);
