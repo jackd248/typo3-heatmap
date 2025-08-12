@@ -27,8 +27,8 @@ use KonradMichalik\Typo3HeatmapWidget\Configuration;
 use KonradMichalik\Typo3HeatmapWidget\Utility\ViewFactoryHelper;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Information\Typo3Version;
+use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Page\JavaScriptModuleInstruction;
-use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
 use TYPO3\CMS\Dashboard\Widgets\ButtonProviderInterface;
@@ -45,8 +45,9 @@ class Heatmap implements WidgetInterface, RequestAwareWidgetInterface, Additiona
     public function __construct(
         protected readonly WidgetConfigurationInterface $configuration,
         protected readonly ListDataProviderInterface $dataProvider,
+        protected readonly LanguageServiceFactory $languageServiceFactory,
         protected readonly ?ButtonProviderInterface $buttonProvider = null,
-        protected array $options = []
+        protected array $options = [],
     ) {}
 
     public function setRequest(ServerRequestInterface $request): void
@@ -56,7 +57,7 @@ class Heatmap implements WidgetInterface, RequestAwareWidgetInterface, Additiona
 
     public function renderWidgetContent(): string
     {
-        $language = $this->request->getAttribute('language', 'en-GB');
+        $language = $this->languageServiceFactory->createFromUserPreferences($GLOBALS['BE_USER']);
         return ViewFactoryHelper::renderView(
             'Heatmap.html',
             [
@@ -65,7 +66,7 @@ class Heatmap implements WidgetInterface, RequestAwareWidgetInterface, Additiona
                 'button' => $this->buttonProvider,
                 'options' => $this->getOptions(),
                 'version' => GeneralUtility::makeInstance(Typo3Version::class)->getMajorVersion(),
-                'locale' => $language instanceof SiteLanguage ? $language->getLocale() : $language,
+                'locale' => $language->getLocale()?->getLanguageCode() ?? $language->lang ?? 'en',
             ]
         );
     }

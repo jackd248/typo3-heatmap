@@ -27,6 +27,7 @@ use KonradMichalik\Typo3HeatmapWidget\Configuration;
 use KonradMichalik\Typo3HeatmapWidget\Widgets\Heatmap;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Page\JavaScriptModuleInstruction;
 use TYPO3\CMS\Dashboard\Widgets\ButtonProviderInterface;
 use TYPO3\CMS\Dashboard\Widgets\ListDataProviderInterface;
@@ -37,6 +38,7 @@ class HeatmapTest extends TestCase
     private Heatmap $subject;
     private WidgetConfigurationInterface&MockObject $configuration;
     private ListDataProviderInterface&MockObject $dataProvider;
+    private LanguageServiceFactory&MockObject $languageServiceFactory;
     private ButtonProviderInterface&MockObject $buttonProvider;
 
     protected function setUp(): void
@@ -45,11 +47,13 @@ class HeatmapTest extends TestCase
 
         $this->configuration = $this->createMock(WidgetConfigurationInterface::class);
         $this->dataProvider = $this->createMock(ListDataProviderInterface::class);
+        $this->languageServiceFactory = $this->createMock(LanguageServiceFactory::class);
         $this->buttonProvider = $this->createMock(ButtonProviderInterface::class);
 
         $this->subject = new Heatmap(
             $this->configuration,
             $this->dataProvider,
+            $this->languageServiceFactory,
             $this->buttonProvider,
             ['test_option' => 'test_value']
         );
@@ -111,6 +115,7 @@ class HeatmapTest extends TestCase
         $subject = new Heatmap(
             $this->configuration,
             $this->dataProvider,
+            $this->languageServiceFactory,
             $this->buttonProvider,
             []
         );
@@ -146,7 +151,8 @@ class HeatmapTest extends TestCase
     {
         $subject = new Heatmap(
             $this->configuration,
-            $this->dataProvider
+            $this->dataProvider,
+            $this->languageServiceFactory
         );
 
         self::assertInstanceOf(Heatmap::class, $subject);
@@ -171,6 +177,7 @@ class HeatmapTest extends TestCase
         $subject = new Heatmap(
             $this->configuration,
             $this->dataProvider,
+            $this->languageServiceFactory,
             null,
             $customOptions
         );
