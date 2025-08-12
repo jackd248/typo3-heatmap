@@ -33,6 +33,7 @@ export declare class HeatmapRenderer {
     private renderMonthLabels;
     private renderYearLabels;
     private renderLegend;
+    private estimateTextWidth;
     destroy(): void;
 }
 //# sourceMappingURL=renderer.d.ts.map

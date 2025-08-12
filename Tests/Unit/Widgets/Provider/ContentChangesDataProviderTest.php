@@ -60,9 +60,15 @@ class ContentChangesDataProviderTest extends TestCase
 
     public function testGetItemsReturnsExpectedData(): void
     {
+        $rawData = [
+            ['date' => '2023-12-01', 'count' => 5],
+            ['date' => '2023-12-02', 'count' => 3],
+        ];
+
+        // Expected data after link enrichment
         $expectedData = [
-            ['date' => '2023-12-01', 'count' => 5, 'link' => '?constraint%5BtimeFrame%5D=30&constraint%5BmanualDateStart%5D=2023-12-01T00%3A00%3A00Z&constraint%5BmanualDateStop%5D=2023-12-01T23%3A59%3A59Z&constraint%5Bchannel%5D=content'],
-            ['date' => '2023-12-02', 'count' => 3, 'link' => '?constraint%5BtimeFrame%5D=30&constraint%5BmanualDateStart%5D=2023-12-02T00%3A00%3A00Z&constraint%5BmanualDateStop%5D=2023-12-02T23%3A59%3A59Z&constraint%5Bchannel%5D=content'],
+            ['date' => '2023-12-01', 'count' => 5, 'link' => '/typo3/module/system/BelogLog?constraint%5BtimeFrame%5D=30&constraint%5BmanualDateStart%5D=2023-12-01T00%3A00%3A00Z&constraint%5BmanualDateStop%5D=2023-12-01T23%3A59%3A59Z&constraint%5Bchannel%5D=content'],
+            ['date' => '2023-12-02', 'count' => 3, 'link' => '/typo3/module/system/BelogLog?constraint%5BtimeFrame%5D=30&constraint%5BmanualDateStart%5D=2023-12-02T00%3A00%3A00Z&constraint%5BmanualDateStop%5D=2023-12-02T23%3A59%3A59Z&constraint%5Bchannel%5D=content'],
         ];
 
         $this->connectionPool
@@ -158,7 +164,14 @@ class ContentChangesDataProviderTest extends TestCase
         $this->result
             ->expects(self::once())
             ->method('fetchAllAssociative')
-            ->willReturn($expectedData);
+            ->willReturn($rawData);
+
+        // Mock UriBuilder for link generation
+        $this->uriBuilder
+            ->expects(self::exactly(2))
+            ->method('buildUriFromRoute')
+            ->with('system_BelogLog')
+            ->willReturn('/typo3/module/system/BelogLog');
 
         $actualData = $this->subject->getItems();
 

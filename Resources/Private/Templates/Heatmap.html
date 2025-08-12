@@ -30,6 +30,7 @@
                  data-options-tooltip-item-plural="{f:translate(key: options.tooltipItemPlural)}"
                  data-options-legend-less="{f:translate(key: 'legend.less', extensionName: 'Typo3HeatmapWidget')}"
                  data-options-legend-more="{f:translate(key: 'legend.more', extensionName: 'Typo3HeatmapWidget')}"
+                 {f:if(condition: options.weekStartsOnMonday, then: 'data-options-week-starts-on-monday="{options.weekStartsOnMonday}"', else: '')}
             ></div>
         </f:then>
         <f:else>
