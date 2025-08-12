@@ -28,6 +28,7 @@ class Heatmap {
         try {
             const data = JSON.parse(container.dataset.values || '[]');
             const options = this.parseOptions(container.dataset);
+            console.log('Initializing heatmap with options:', container.dataset);
             // Clear any existing content
             container.innerHTML = '';
             // Store renderer instance for potential cleanup
@@ -57,7 +58,7 @@ class Heatmap {
             tooltipItemPlural: dataset.optionsTooltipItemPlural || 'changes',
             legendLess: dataset.optionsLegendLess || 'Less',
             legendMore: dataset.optionsLegendMore || 'More',
-            weekStartsOnMonday: dataset.optionsWeekStartsOnMonday === 'true'
+            weekStartsOnMonday: !!+(dataset.optionsWeekStartsOnMonday || '0')
         };
     }
     showError(container, message) {
