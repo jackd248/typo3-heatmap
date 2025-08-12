@@ -111,6 +111,7 @@ The following render date range modes are available:
 - Ideal for recent activity monitoring
 
 4. `year-auto`
+
 ![Mode year-auto](Images/mode-year-auto.jpg "Mode year-auto")
 
 - Shows current calendar year based on available data
