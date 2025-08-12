@@ -7,6 +7,7 @@
 [![Latest Stable Version](https://typo3-badges.dev/badge/typo3_heatmap_widget/version/shields.svg)](https://extensions.typo3.org/extension/typo3_heatmap_widget)
 [![Supported TYPO3 versions](https://typo3-badges.dev/badge/typo3_heatmap_widget/typo3/shields.svg)](https://extensions.typo3.org/extension/typo3_heatmap_widget)
 [![Supported PHP Versions](https://img.shields.io/packagist/dependency-v/konradmichalik/typo3-heatmap-widget/php?logo=php)](https://packagist.org/packages/konradmichalik/typo3-heatmap-widget)
+![Stability](https://typo3-badges.dev/badge/typo3_heatmap_widget/stability/shields.svg)
 [![Coverage](https://img.shields.io/coverallsCoverage/github/jackd248/typo3-heatmap-widget?logo=coveralls)](https://coveralls.io/github/jackd248/typo3-heatmap-widget)
 [![CGL](https://img.shields.io/github/actions/workflow/status/jackd248/typo3-heatmap-widget/cgl.yml?label=cgl&logo=github)](https://github.com/jackd248/typo3-heatmap-widget/actions/workflows/cgl.yml)
 [![Tests](https://img.shields.io/github/actions/workflow/status/jackd248/typo3-heatmap-widget/tests.yml?label=tests&logo=github)](https://github.com/jackd248/typo3-heatmap-widget/actions/workflows/tests.yml)
