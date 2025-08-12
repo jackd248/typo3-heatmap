@@ -87,7 +87,7 @@ The following render date range modes are available:
 
 1. `auto` (default)
 
-![Mode auto](Documentation/Images/mode-auto.jpg "Mode auto")
+![Mode auto](Images/mode-auto.jpg "Mode auto")
 
 - Automatically calculates optimal date range based on container size and available data
 - Shows minimum 30 days, maximum 365 days
@@ -96,7 +96,7 @@ The following render date range modes are available:
 
 2. `year`
 
-![Mode year](Documentation/Images/mode-year.jpg "Mode year")
+![Mode year](Images/mode-year.jpg "Mode year")
 
 - Fixed 365-day period ending today
 - Always shows exactly one year of data
@@ -104,14 +104,14 @@ The following render date range modes are available:
 
 3. `month`
 
-![Mode month](Documentation/Images/mode-month.jpg "Mode month")
+![Mode month](Images/mode-month.jpg "Mode month")
 
 - Fixed 30-day period ending today
 - Shows last month of activity
 - Ideal for recent activity monitoring
 
 4. `year-auto`
-![Mode year-auto](Documentation/Images/mode-year-auto.jpg "Mode year-auto")
+![Mode year-auto](Images/mode-year-auto.jpg "Mode year-auto")
 
 - Shows current calendar year based on available data
 - Starts from January 1st or earliest data (whichever is later)
