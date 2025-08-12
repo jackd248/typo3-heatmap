@@ -83,6 +83,7 @@ class HeatmapTest extends TestCase
                 'RenderingContextFactory::__construct()',
                 'ViewFactoryInterface',
                 '$request must not be accessed before initialization',
+                'Undefined constant "TYPO3\CMS\Core\Page\LF"',
             ];
 
             $foundExpectedError = false;
