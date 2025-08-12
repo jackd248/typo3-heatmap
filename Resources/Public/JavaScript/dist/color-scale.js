@@ -46,9 +46,9 @@ export class ColorScale {
     }
     getColor(value) {
         const { r, g, b } = this.config.color;
-        // Empty state
+        // Empty state - use CSS custom property that adapts to dark/light mode
         if (value === 0) {
-            return '#ebedf0';
+            return 'var(--typo3-heatmap-empty-color, rgba(235, 237, 240, 0.3))';
         }
         // Find threshold level (1-4)
         let level = 1;
@@ -62,17 +62,17 @@ export class ColorScale {
         let opacity;
         switch (level) {
             case 1:
-                opacity = 0.25;
-                break; // Lighter but visible
+                opacity = 0.4;
+                break; // More visible than empty
             case 2:
-                opacity = 0.45;
+                opacity = 0.6;
                 break; // More distinct from level 1
             case 3:
-                opacity = 0.65;
+                opacity = 0.8;
                 break; // Clear middle tone
             case 4:
-                opacity = 0.85;
-                break; // Strong but not solid
+                opacity = 1.0;
+                break; // Maximum intensity
             default:
                 opacity = 1.0;
                 break; // Maximum intensity

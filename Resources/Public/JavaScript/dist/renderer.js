@@ -445,11 +445,12 @@ export class HeatmapRenderer {
             square.setAttribute('height', '10');
             square.setAttribute('rx', '2');
             if (i === 0) {
-                square.setAttribute('fill', '#ebedf0');
+                square.setAttribute('fill', 'var(--typo3-heatmap-empty-color, rgba(235, 237, 240, 0.3))');
             }
             else {
                 const { r, g, b } = this.config.color;
-                square.setAttribute('fill', `rgba(${r}, ${g}, ${b}, ${0.2 * i})`);
+                const opacities = [0, 0.4, 0.6, 0.8, 1.0]; // Match ColorScale opacity values
+                square.setAttribute('fill', `rgba(${r}, ${g}, ${b}, ${opacities[i]})`);
             }
             // Add hover tooltip with value range
             this.addLegendSquareTooltip(square, i, thresholds);
