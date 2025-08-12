@@ -134,13 +134,13 @@ export class HeatmapRenderer {
                 start.setDate(start.getDate() - 364);
                 break;
             case 'month':
-                end = new Date(Math.min(latestData.getTime(), today.getTime()));
+                end = new Date(today); // Always show until today
                 start = new Date(end);
                 start.setDate(start.getDate() - 29);
                 break;
             case 'year-auto':
                 // Show current year based on available data
-                end = new Date(Math.min(latestData.getTime(), today.getTime()));
+                end = new Date(today); // Always show until today
                 const yearStart = new Date(end.getFullYear(), 0, 1);
                 start = new Date(Math.max(earliestData.getTime(), yearStart.getTime()));
 
@@ -152,7 +152,7 @@ export class HeatmapRenderer {
                 }
                 break;
             default: // 'auto'
-                end = new Date(Math.min(latestData.getTime(), today.getTime()));
+                end = new Date(today); // Always show until today
 
                 // Calculate optimal duration based on container dimensions for best space utilization
                 const optimalDuration = this.calculateOptimalDuration();
@@ -175,6 +175,17 @@ export class HeatmapRenderer {
         }
 
         this.dateRange = {start, end};
+        
+        // Debug output
+        console.log('Date Range Calculation:', {
+            mode: this.config.dateRangeMode,
+            today: today.toISOString().split('T')[0],
+            start: start.toISOString().split('T')[0],
+            end: end.toISOString().split('T')[0],
+            earliestData: earliestData.toISOString().split('T')[0],
+            latestData: latestData.toISOString().split('T')[0],
+            totalDays: Math.ceil((end.getTime() - start.getTime()) / (24 * 60 * 60 * 1000)) + 1
+        });
     }
 
     private calculateOptimalDuration(): number {
