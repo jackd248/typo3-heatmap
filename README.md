@@ -70,7 +70,11 @@ Please have a look at [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## 💎 Credits
 
-Empty by Chattapat from <a href="https://thenounproject.com/browse/icons/term/empty/" target="_blank" title="Empty Icons">Noun Project</a> (CC BY 3.0)
+The extension icon based on  the original
+[`content-widget`](https://typo3.github.io/TYPO3.Icons/icons/content/content-widget.html) icon from TYPO3 core which is
+originally licensed under [MIT License](https://github.com/TYPO3/TYPO3.Icons/blob/main/LICENSE).
+
+Empty icon by Chattapat from <a href="https://thenounproject.com/browse/icons/term/empty/" target="_blank" title="Empty Icons">Noun Project</a> (CC BY 3.0)
 
 ## ⭐ License
 
