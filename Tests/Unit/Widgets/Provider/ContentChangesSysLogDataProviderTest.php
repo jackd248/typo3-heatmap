@@ -25,7 +25,7 @@ namespace KonradMichalik\Typo3HeatmapWidget\Tests\Unit\Widgets\Provider;
 
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Result;
-use KonradMichalik\Typo3HeatmapWidget\Widgets\Provider\ContentChangesDataProvider;
+use KonradMichalik\Typo3HeatmapWidget\Widgets\Provider\ContentChangesSysLogDataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
@@ -34,9 +34,9 @@ use TYPO3\CMS\Core\Database\Query\Expression\ExpressionBuilder;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Database\Query\Restriction\QueryRestrictionContainerInterface;
 
-class ContentChangesDataProviderTest extends TestCase
+class ContentChangesSysLogDataProviderTest extends TestCase
 {
-    private ContentChangesDataProvider $subject;
+    private ContentChangesSysLogDataProvider $subject;
     private ConnectionPool&MockObject $connectionPool;
     private UriBuilder&MockObject $uriBuilder;
     private QueryBuilder&MockObject $queryBuilder;
@@ -55,7 +55,7 @@ class ContentChangesDataProviderTest extends TestCase
         $this->restrictions = $this->createMock(QueryRestrictionContainerInterface::class);
         $this->result = $this->createMock(Result::class);
 
-        $this->subject = new ContentChangesDataProvider($this->connectionPool, $this->uriBuilder);
+        $this->subject = new ContentChangesSysLogDataProvider($this->connectionPool, $this->uriBuilder);
     }
 
     public function testGetItemsReturnsExpectedData(): void
@@ -125,7 +125,7 @@ class ContentChangesDataProviderTest extends TestCase
         $this->queryBuilder
             ->expects(self::exactly(2))
             ->method('createNamedParameter')
-            ->willReturnCallback(function (int $value, int|ParameterType $type = null): string {
+            ->willReturnCallback(function (int $value, int|ParameterType|null $type): string {
                 // Handle both old int constants and new ParameterType enum
                 $isIntegerType = $type === ParameterType::INTEGER;
 

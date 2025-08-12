@@ -29,15 +29,15 @@ use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Dashboard\Widgets\ListDataProviderInterface;
 
-class ContentChangesDataProvider implements ListDataProviderInterface
+readonly class ContentChangesSysLogDataProvider implements ListDataProviderInterface
 {
     public function __construct(
-        private readonly ConnectionPool $connectionPool,
-        private readonly UriBuilder $uriBuilder
+        private ConnectionPool $connectionPool,
+        private UriBuilder $uriBuilder
     ) {}
 
     /**
-     * @throws \Doctrine\DBAL\Exception
+     * @throws \Doctrine\DBAL\Exception|RouteNotFoundException
      */
     public function getItems(): array
     {
