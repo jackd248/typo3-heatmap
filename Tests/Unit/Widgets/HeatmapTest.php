@@ -27,6 +27,7 @@ use KonradMichalik\Typo3HeatmapWidget\Configuration;
 use KonradMichalik\Typo3HeatmapWidget\Widgets\Heatmap;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Page\JavaScriptModuleInstruction;
 use TYPO3\CMS\Dashboard\Widgets\ButtonProviderInterface;
@@ -45,6 +46,7 @@ class HeatmapTest extends TestCase
     {
         parent::setUp();
 
+        $GLOBALS['BE_USER'] = $this->createMock(BackendUserAuthentication::class);
         $this->configuration = $this->createMock(WidgetConfigurationInterface::class);
         $this->dataProvider = $this->createMock(ListDataProviderInterface::class);
         $this->languageServiceFactory = $this->createMock(LanguageServiceFactory::class);
