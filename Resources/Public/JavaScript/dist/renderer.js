@@ -436,6 +436,7 @@ export class HeatmapRenderer {
         legendGroup.appendChild(lessLabel);
         // Legend squares - positioned after less label + spacing
         const squaresStartX = legendX + lessTextWidth + minSpacing;
+        const thresholds = this.colorScale.getThresholds();
         for (let i = 0; i < 5; i++) {
             const square = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
             square.setAttribute('x', (squaresStartX + (i * 12)).toString());
@@ -450,6 +451,8 @@ export class HeatmapRenderer {
                 const { r, g, b } = this.config.color;
                 square.setAttribute('fill', `rgba(${r}, ${g}, ${b}, ${0.2 * i})`);
             }
+            // Add hover tooltip with value range
+            this.addLegendSquareTooltip(square, i, thresholds);
             legendGroup.appendChild(square);
         }
         // "More" label - positioned after squares + spacing
@@ -466,6 +469,41 @@ export class HeatmapRenderer {
         // Rough estimation: average character width is about 0.6 * fontSize
         // This works well for typical fonts used in SVG
         return text.length * fontSize * 0.6;
+    }
+    addLegendSquareTooltip(square, level, thresholds) {
+        if (!this.tooltip)
+            return;
+        let tooltipText;
+        if (level === 0) {
+            // Empty/no data
+            tooltipText = '0';
+        }
+        else if (level === 4) {
+            // Highest level - show threshold and above
+            tooltipText = `${thresholds[level]}+`;
+        }
+        else {
+            // Show range between thresholds
+            const minValue = thresholds[level];
+            const maxValue = thresholds[level + 1] - 1;
+            tooltipText = minValue === maxValue ? `${minValue}` : `${minValue}-${maxValue}`;
+        }
+        const showTooltip = (event) => {
+            if (!this.tooltip)
+                return;
+            const squareX = parseFloat(square.getAttribute('x') || '0') + this.layout.offsetX;
+            const squareY = parseFloat(square.getAttribute('y') || '0') + this.layout.offsetY;
+            this.tooltip.show(squareX + 5, // Center on square horizontally
+            squareY, // Position at square level vertically
+            tooltipText, this.layout.containerWidth, this.layout.containerHeight);
+        };
+        const hideTooltip = () => {
+            if (!this.tooltip)
+                return;
+            this.tooltip.hide();
+        };
+        square.addEventListener('mouseover', showTooltip);
+        square.addEventListener('mouseout', hideTooltip);
     }
     destroy() {
         if (this.container && this.svg) {

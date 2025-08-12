@@ -37,7 +37,7 @@ export class ColorScale {
       this.thresholds = [0, 2, 4, 7, 11];
     } else if (this.maxValue <= 30) {
       // For medium values
-      this.thresholds = [0, 5, 10, 18, 25];
+      this.thresholds = [0, 1, 6, 15, 25];
     } else {
       // For high values, use quartile-based distribution
       const step = Math.ceil(this.maxValue / 5);

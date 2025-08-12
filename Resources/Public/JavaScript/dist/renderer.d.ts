@@ -34,6 +34,7 @@ export declare class HeatmapRenderer {
     private renderYearLabels;
     private renderLegend;
     private estimateTextWidth;
+    private addLegendSquareTooltip;
     destroy(): void;
 }
 //# sourceMappingURL=renderer.d.ts.map
