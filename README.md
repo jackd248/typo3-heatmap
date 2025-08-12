@@ -7,6 +7,7 @@
 [![Latest Stable Version](https://typo3-badges.dev/badge/typo3_heatmap_widget/version/shields.svg)](https://extensions.typo3.org/extension/typo3_heatmap_widget)
 [![Supported TYPO3 versions](https://typo3-badges.dev/badge/typo3_heatmap_widget/typo3/shields.svg)](https://extensions.typo3.org/extension/typo3_heatmap_widget)
 [![Supported PHP Versions](https://img.shields.io/packagist/dependency-v/konradmichalik/typo3-heatmap-widget/php?logo=php)](https://packagist.org/packages/konradmichalik/typo3-heatmap-widget)
+[![Coverage](https://img.shields.io/coverallsCoverage/github/jackd248/typo3-heatmap-widget?logo=coveralls)](https://coveralls.io/github/jackd248/typo3-heatmap-widget)
 [![CGL](https://img.shields.io/github/actions/workflow/status/jackd248/typo3-heatmap-widget/cgl.yml?label=cgl&logo=github)](https://github.com/jackd248/typo3-heatmap-widget/actions/workflows/cgl.yml)
 [![Tests](https://img.shields.io/github/actions/workflow/status/jackd248/typo3-heatmap-widget/tests.yml?label=tests&logo=github)](https://github.com/jackd248/typo3-heatmap-widget/actions/workflows/tests.yml)
 [![License](https://poser.pugx.org/konradmichalik/typo3-heatmap-widget/license)](LICENSE.md)
@@ -20,10 +21,10 @@ This extension provides a dashboard widget to display a (GitHub lookalike) contr
 
 ![Content changes heatmap](Documentation/Images/heatmap.jpg "Content changes heatmap")
 
-## Features
-* **Dashboard heatmap for content changes:** Instantly visualize when and how much content was changed in TYPO3.
-* **Dashboard heatmap for system errors:** Quickly identify critical periods and error spikes with a clear heatmap overview.
-* **Custom heatmap widgets:** Flexibly extend your dashboard with your own widgets, e\.g\. for visitor analytics or other data sources.
+## ✨ Features
+* ![Content changes heatmap](Resources/Public/Icons/content-heatmap-widget.png "Content changes heatmap") **Dashboard heatmap for content changes:** Instantly visualize when and how much content was changed in TYPO3.
+* ![Error heatmap](Resources/Public/Icons/error-heatmap-widget.png "Error heatmap") **Dashboard heatmap for system errors:** Quickly identify critical periods and error spikes with a clear heatmap overview.
+* ![Custom heatmap](Resources/Public/Icons/custom-heatmap-widget.png "Custom heatmap") **Custom heatmap widgets:** Flexibly extend your dashboard with your own widgets, e\.g\. for visitor analytics or other data sources.
 
 ## 🔥 Installation
 
@@ -51,7 +52,10 @@ Download the zip file from [TYPO3 extension repository (TER)](https://extensions
 ## ⚡ Usage
 
 1. Install the extension.
-2. Add the "Content changes" widget to your dashboard via the "System Information" tab.
+2. Add the "Content changes (Heatmap)" widget to your dashboard via the "System Information" tab.
+
+![Select widget in the dashboard](Documentation/Images/select-widget.jpg "Select widget in the dashboard")
+
 3. Display the heatmap within your dashboard.
 
 ![Show widget in the dashboard](Documentation/Images/widget.jpg "Show widget in the dashboard")
