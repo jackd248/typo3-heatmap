@@ -408,8 +408,15 @@ export class HeatmapRenderer {
             return;
         const legendGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         const legendY = this.layout.heatmapHeight + 40;
-        const legendX = Math.max(0, this.layout.heatmapWidth - 140);
-        // "Less" label
+        // Calculate label widths for dynamic spacing
+        const lessTextWidth = this.estimateTextWidth(this.config.legendLess, 11);
+        const moreTextWidth = this.estimateTextWidth(this.config.legendMore, 11);
+        const squaresWidth = 5 * 12 - 2; // 5 squares * 12px spacing - 2px adjustment
+        const minSpacing = 8; // Minimum spacing between elements
+        // Calculate total legend width
+        const totalLegendWidth = lessTextWidth + minSpacing + squaresWidth + minSpacing + moreTextWidth;
+        const legendX = Math.max(0, this.layout.heatmapWidth - totalLegendWidth);
+        // "Less" label - positioned at start
         const lessLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         lessLabel.setAttribute('x', legendX.toString());
         lessLabel.setAttribute('y', legendY.toString());
@@ -417,10 +424,11 @@ export class HeatmapRenderer {
         lessLabel.setAttribute('font-size', '11px');
         lessLabel.textContent = this.config.legendLess;
         legendGroup.appendChild(lessLabel);
-        // Legend squares
+        // Legend squares - positioned after less label + spacing
+        const squaresStartX = legendX + lessTextWidth + minSpacing;
         for (let i = 0; i < 5; i++) {
             const square = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-            square.setAttribute('x', (legendX + 35 + (i * 12)).toString());
+            square.setAttribute('x', (squaresStartX + (i * 12)).toString());
             square.setAttribute('y', (legendY - 10).toString());
             square.setAttribute('width', '10');
             square.setAttribute('height', '10');
@@ -434,15 +442,20 @@ export class HeatmapRenderer {
             }
             legendGroup.appendChild(square);
         }
-        // "More" label
+        // "More" label - positioned after squares + spacing
         const moreLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        moreLabel.setAttribute('x', (legendX + 100).toString());
+        moreLabel.setAttribute('x', (squaresStartX + squaresWidth + minSpacing).toString());
         moreLabel.setAttribute('y', legendY.toString());
         moreLabel.setAttribute('fill', '#586069');
         moreLabel.setAttribute('font-size', '11px');
         moreLabel.textContent = this.config.legendMore;
         legendGroup.appendChild(moreLabel);
         this.mainGroup.appendChild(legendGroup);
+    }
+    estimateTextWidth(text, fontSize) {
+        // Rough estimation: average character width is about 0.6 * fontSize
+        // This works well for typical fonts used in SVG
+        return text.length * fontSize * 0.6;
     }
     destroy() {
         if (this.container && this.svg) {
