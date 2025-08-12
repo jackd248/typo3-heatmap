@@ -175,7 +175,7 @@ export class HeatmapRenderer {
         }
 
         this.dateRange = {start, end};
-        
+
         // Debug output
         console.log('Date Range Calculation:', {
             mode: this.config.dateRangeMode,
