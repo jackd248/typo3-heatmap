@@ -91,7 +91,7 @@ class LoginDataProviderTest extends TestCase
         // Check that links were enriched
         foreach ($result as $item) {
             self::assertArrayHasKey('link', $item);
-            self::assertStringContainsString('constraint%5Bchannel%5D=auth', $item['link']);
+            self::assertStringContainsString('constraint%5Bchannel%5D=user', $item['link']);
         }
     }
 
