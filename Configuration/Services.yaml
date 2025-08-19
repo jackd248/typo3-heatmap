@@ -17,6 +17,7 @@ services:
             $dataProvider: '@KonradMichalik\Typo3Heatmap\Widgets\Provider\ContentChangesHistoryDataProvider'
             $options:
                 dateRangeMode: 'auto'
+                type: 'content'
         tags:
             -   name: dashboard.widget
                 identifier: 'contentChangesHeatmap'
@@ -36,6 +37,7 @@ services:
                 dateRangeMode: 'auto'
                 tooltipItemSingular: 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.error.singular'
                 tooltipItemPlural: 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.error.plural'
+                type: 'error'
         tags:
             -   name: dashboard.widget
                 identifier: 'errorHeatmap'
@@ -55,6 +57,7 @@ services:
                 dateRangeMode: 'auto'
                 tooltipItemSingular: 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.login.singular'
                 tooltipItemPlural: 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.login.plural'
+                type: 'login'
         tags:
             -   name: dashboard.widget
                 identifier: 'loginHeatmap'

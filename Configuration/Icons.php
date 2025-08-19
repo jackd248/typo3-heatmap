@@ -24,7 +24,7 @@ declare(strict_types=1);
 use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
 
 return [
-    'heatmap-widget' => [
+    'heatmap-widget-content' => [
         'provider' => SvgIconProvider::class,
         'source' => 'EXT:typo3_heatmap/Resources/Public/Icons/content-heatmap-widget.svg',
     ],
@@ -36,12 +36,12 @@ return [
         'provider' => SvgIconProvider::class,
         'source' => 'EXT:typo3_heatmap/Resources/Public/Icons/custom-heatmap-widget.svg',
     ],
-    'heatmap-widget-empty' => [
-        'provider' => SvgIconProvider::class,
-        'source' => 'EXT:typo3_heatmap/Resources/Public/Icons/empty.svg',
-    ],
     'heatmap-widget-login' => [
         'provider' => SvgIconProvider::class,
         'source' => 'EXT:typo3_heatmap/Resources/Public/Icons/login-heatmap-widget.svg',
+    ],
+    'heatmap-widget-empty' => [
+        'provider' => SvgIconProvider::class,
+        'source' => 'EXT:typo3_heatmap/Resources/Public/Icons/empty.svg',
     ],
 ];
