@@ -25,6 +25,7 @@ This extension provides a dashboard widget to display a (GitHub lookalike) contr
 ## ✨ Features
 * ![Content changes heatmap](Resources/Public/Icons/content-heatmap-widget.png "Content changes heatmap") **Dashboard heatmap for content changes:** Instantly visualize when and how much content was changed in TYPO3.
 * ![Error heatmap](Resources/Public/Icons/error-heatmap-widget.png "Error heatmap") **Dashboard heatmap for system errors:** Quickly identify critical periods and error spikes with a clear heatmap overview.
+* ![Login heatmap](Resources/Public/Icons/login-heatmap-widget.png "Login heatmap") **Dashboard heatmap for user logins:** Track user activity and login patterns over time with a visual heatmap.
 * ![Custom heatmap](Resources/Public/Icons/custom-heatmap-widget.png "Custom heatmap") **Custom heatmap widgets:** Flexibly extend your dashboard with your own widgets, e\.g\. for visitor analytics or other data sources.
 
 ## 🔥 Installation
