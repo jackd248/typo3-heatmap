@@ -1,0 +1,132 @@
+<svg width="100%" height="100%" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <rect x="4" y="3" width="10" height="12" style="fill:white;fill-rule:nonzero;"/>
+    <path d="M4,3L4,15L14,15L14,3L4,3ZM5,4L13,4L13,14L5,14L5,4Z" style="fill:rgb(102,102,102);fill-rule:nonzero;"/>
+    <rect x="5" y="4" width="8" height="1" style="fill:rgb(153,153,153);fill-rule:nonzero;"/>
+    <path d="M2,1L3,1L3,2L2,2L2,1ZM2,3L3,3L3,4L2,4L2,3ZM2,5L3,5L3,6L2,6L2,5ZM2,7L3,7L3,8L2,8L2,7ZM2,9L3,9L3,10L2,10L2,9ZM2,11L3,11L3,12L2,12L2,11ZM4,1L5,1L5,2L4,2L4,1ZM6,1L7,1L7,2L6,2L6,1ZM8,1L9,1L9,2L8,2L8,1ZM10,1L11,1L11,2L10,2L10,1Z" style="fill:rgb(185,185,185);fill-rule:nonzero;"/>
+    <g transform="matrix(1,0,0,1,-2.99354,-0.0102838)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-2.99354,0.990205)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.2;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-2.99354,1.99069)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.4;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-2.99354,4.99216)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.4;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-2.99354,2.99118)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.2;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-2.99354,3.99167)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-2.99354,5.99265)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,2.0053,-0.0102838)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,2.0053,0.990205)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.8;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,2.0053,1.99069)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.4;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,2.0053,4.99216)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.6;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,2.0053,2.99118)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,2.0053,3.99167)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.4;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,2.0053,5.99265)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.2;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,1.00553,-0.0102838)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.6;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,1.00553,0.990205)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.4;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,1.00553,1.99069)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.6;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,1.00553,4.99216)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,1.00553,2.99118)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.2;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,1.00553,3.99167)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,1.00553,5.99265)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.8;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,0.00576387,-0.0102838)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.2;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,0.00576387,0.990205)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,0.00576387,1.99069)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.8;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,0.00576387,4.99216)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.2;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,0.00576387,2.99118)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.6;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,0.00576387,3.99167)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.4;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,0.00576387,5.99265)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.4;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-0.994005,-0.0102838)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.4;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-0.994005,0.990205)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.2;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-0.994005,1.99069)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.4;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-0.994005,4.99216)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.6;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-0.994005,2.99118)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-0.994005,3.99167)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.2;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-0.994005,5.99265)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-1.99377,-0.0102838)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-1.99377,0.990205)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.6;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-1.99377,1.99069)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.8;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-1.99377,4.99216)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-1.99377,2.99118)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-1.99377,3.99167)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.4;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-1.99377,5.99265)">
+        <rect x="9" y="6" width="1" height="1" style="fill:rgb(120, 144, 156);fill-opacity:0.6;fill-rule:nonzero;"/>
+    </g>
+</svg>

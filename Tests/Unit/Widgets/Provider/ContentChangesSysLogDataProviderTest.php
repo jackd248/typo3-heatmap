@@ -25,7 +25,7 @@ namespace KonradMichalik\Typo3Heatmap\Tests\Unit\Widgets\Provider;
 
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Result;
-use KonradMichalik\Typo3Heatmap\Widgets\Provider\ContentChangesDataProvider;
+use KonradMichalik\Typo3Heatmap\Widgets\Provider\ContentChangesSysLogDataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Backend\Routing\UriBuilder;

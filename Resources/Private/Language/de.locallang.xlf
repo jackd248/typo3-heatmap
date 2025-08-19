@@ -18,6 +18,14 @@
 				<source />
 				<target>Zeigt eine Heatmap mit allen Fehlern in einem bestimmten Zeitraum.</target>
 			</trans-unit>
+			<trans-unit id="widgets.login.title">
+				<source />
+				<target>Anmeldungen (Heatmap)</target>
+			</trans-unit>
+			<trans-unit id="widgets.login.description">
+				<source />
+				<target>Zeigt eine Heatmap mit allen Benutzer-Anmeldungen in einem bestimmten Zeitraum.</target>
+			</trans-unit>
 			<trans-unit id="widgets.empty">
 				<source />
 				<target>Keine Inhalte</target>
@@ -42,6 +50,14 @@
 			<trans-unit id="tooltip.error.plural">
 				<source />
 				<target>Probleme</target>
+			</trans-unit>
+			<trans-unit id="tooltip.login.singular">
+				<source />
+				<target>Anmeldung</target>
+			</trans-unit>
+			<trans-unit id="tooltip.login.plural">
+				<source />
+				<target>Anmeldungen</target>
 			</trans-unit>
 			<trans-unit id="legend.less">
 				<source />

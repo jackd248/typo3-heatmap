@@ -40,4 +40,8 @@ return [
         'provider' => SvgIconProvider::class,
         'source' => 'EXT:typo3_heatmap/Resources/Public/Icons/empty.svg',
     ],
+    'heatmap-widget-login' => [
+        'provider' => SvgIconProvider::class,
+        'source' => 'EXT:typo3_heatmap/Resources/Public/Icons/login-heatmap-widget.svg',
+    ],
 ];

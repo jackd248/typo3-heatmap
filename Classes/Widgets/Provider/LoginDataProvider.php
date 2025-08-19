@@ -29,28 +29,29 @@ use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Dashboard\Widgets\ListDataProviderInterface;
 
-readonly class ContentChangesHistoryDataProvider implements ListDataProviderInterface
+class LoginDataProvider implements ListDataProviderInterface
 {
     public function __construct(
-        private ConnectionPool $connectionPool,
-        private UriBuilder $uriBuilder
+        private readonly ConnectionPool $connectionPool,
+        private readonly UriBuilder $uriBuilder
     ) {}
 
     /**
      * @throws \Doctrine\DBAL\Exception
-     * @throws RouteNotFoundException
      */
     public function getItems(): array
     {
-        $queryBuilder = $this->connectionPool->getQueryBuilderForTable('sys_history');
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable('sys_log');
         $queryBuilder->getRestrictions()->removeAll();
 
         $query = $queryBuilder
             ->selectLiteral('DATE(FROM_UNIXTIME(tstamp)) AS date')
             ->addSelectLiteral('COUNT(*) AS count')
-            ->from('sys_history')
+            ->from('sys_log')
             ->where(
-                $queryBuilder->expr()->neq('tablename', $queryBuilder->createNamedParameter('', ParameterType::STRING))
+                $queryBuilder->expr()->eq('type', $queryBuilder->createNamedParameter(255, ParameterType::INTEGER)),
+                $queryBuilder->expr()->eq('action', $queryBuilder->createNamedParameter(1, ParameterType::INTEGER)),
+                $queryBuilder->expr()->eq('error', $queryBuilder->createNamedParameter(0, ParameterType::INTEGER))
             )
             ->groupBy('date')
             ->orderBy('date', 'DESC');
@@ -72,7 +73,7 @@ readonly class ContentChangesHistoryDataProvider implements ListDataProviderInte
                 '?constraint%5BtimeFrame%5D=30' .
                 '&constraint%5BmanualDateStart%5D=' . urlencode($startDate) .
                 '&constraint%5BmanualDateStop%5D=' . urlencode($endDate) .
-                '&constraint%5Bchannel%5D=history';
+                '&constraint%5Bchannel%5D=user';
         }
         return $items;
     }

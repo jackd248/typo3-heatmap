@@ -45,3 +45,22 @@ services:
                 iconIdentifier: 'heatmap-widget-error'
                 height: 'medium'
                 width: 'medium'
+
+    loginHeatmap:
+        class: 'KonradMichalik\Typo3Heatmap\Widgets\Heatmap'
+        arguments:
+            $dataProvider: '@KonradMichalik\Typo3Heatmap\Widgets\Provider\LoginDataProvider'
+            $options:
+                color: '120,144,156'
+                dateRangeMode: 'auto'
+                tooltipItemSingular: 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.login.singular'
+                tooltipItemPlural: 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.login.plural'
+        tags:
+            -   name: dashboard.widget
+                identifier: 'loginHeatmap'
+                groupNames: 'systemInfo'
+                title: 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:widgets.login.title'
+                description: 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:widgets.login.description'
+                iconIdentifier: 'heatmap-widget-login'
+                height: 'medium'
+                width: 'medium'
