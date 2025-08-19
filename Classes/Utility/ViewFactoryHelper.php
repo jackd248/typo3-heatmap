@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the TYPO3 CMS extension "typo3_heatmap_widget".
+ * This file is part of the TYPO3 CMS extension "typo3_heatmap".
  *
  * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
  *
@@ -21,9 +21,9 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace KonradMichalik\Typo3HeatmapWidget\Utility;
+namespace KonradMichalik\Typo3Heatmap\Utility;
 
-use KonradMichalik\Typo3HeatmapWidget\Configuration;
+use KonradMichalik\Typo3Heatmap\Configuration;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Page\PageRenderer;

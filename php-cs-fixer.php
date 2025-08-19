@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the TYPO3 CMS extension "typo3_heatmap_widget".
+ * This file is part of the TYPO3 CMS extension "typo3_heatmap".
  *
  * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
  *
@@ -22,7 +22,7 @@ declare(strict_types=1);
  */
 
 use EliasHaeussler\PhpCsFixerConfig;
-use KonradMichalik\Typo3HeatmapWidget\Configuration;
+use KonradMichalik\Typo3Heatmap\Configuration;
 use TYPO3\CodingStandards;
 
 $header = PhpCsFixerConfig\Rules\Header::create(

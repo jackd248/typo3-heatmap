@@ -4,44 +4,44 @@ services:
         autoconfigure: true
         public: false
 
-    KonradMichalik\Typo3HeatmapWidget\:
+    KonradMichalik\Typo3Heatmap\:
         resource: '../Classes/*'
 
-    KonradMichalik\Typo3HeatmapWidget\Widgets\Provider\SysLogButtonProvider:
+    KonradMichalik\Typo3Heatmap\Widgets\Provider\SysLogButtonProvider:
         arguments:
-            $title: 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:widgets.recentUpdates.buttonText'
+            $title: 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:widgets.recentUpdates.buttonText'
 
     contentChangesHeatmap:
-        class: 'KonradMichalik\Typo3HeatmapWidget\Widgets\Heatmap'
+        class: 'KonradMichalik\Typo3Heatmap\Widgets\Heatmap'
         arguments:
-            $dataProvider: '@KonradMichalik\Typo3HeatmapWidget\Widgets\Provider\ContentChangesDataProvider'
+            $dataProvider: '@KonradMichalik\Typo3Heatmap\Widgets\Provider\ContentChangesDataProvider'
             $options:
                 dateRangeMode: 'auto'
         tags:
             -   name: dashboard.widget
                 identifier: 'contentChangesHeatmap'
                 groupNames: 'systemInfo'
-                title: 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:widgets.contentChanges.title'
-                description: 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:widgets.contentChanges.description'
+                title: 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:widgets.contentChanges.title'
+                description: 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:widgets.contentChanges.description'
                 iconIdentifier: 'heatmap-widget'
                 height: 'medium'
                 width: 'medium'
 
     errorHeatmap:
-        class: 'KonradMichalik\Typo3HeatmapWidget\Widgets\Heatmap'
+        class: 'KonradMichalik\Typo3Heatmap\Widgets\Heatmap'
         arguments:
-            $dataProvider: '@KonradMichalik\Typo3HeatmapWidget\Widgets\Provider\ErrorDataProvider'
+            $dataProvider: '@KonradMichalik\Typo3Heatmap\Widgets\Provider\ErrorDataProvider'
             $options:
                 color: '194,24,7'
                 dateRangeMode: 'auto'
-                tooltipItemSingular: 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:tooltip.error.singular'
-                tooltipItemPlural: 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:tooltip.error.plural'
+                tooltipItemSingular: 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.error.singular'
+                tooltipItemPlural: 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.error.plural'
         tags:
             -   name: dashboard.widget
                 identifier: 'errorHeatmap'
                 groupNames: 'systemInfo'
-                title: 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:widgets.error.title'
-                description: 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:widgets.error.description'
+                title: 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:widgets.error.title'
+                description: 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:widgets.error.description'
                 iconIdentifier: 'heatmap-widget-error'
                 height: 'medium'
                 width: 'medium'

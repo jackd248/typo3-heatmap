@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the TYPO3 CMS extension "typo3_heatmap_widget".
+ * This file is part of the TYPO3 CMS extension "typo3_heatmap".
  *
  * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
  *
@@ -22,6 +22,6 @@
 return [
     'dependencies' => ['core', 'backend'],
     'imports' => [
-        '@KonradMichalik/Typo3HeatmapWidget/' => 'EXT:typo3_heatmap_widget/Resources/Public/JavaScript/dist/',
+        '@KonradMichalik/Typo3Heatmap/' => 'EXT:typo3_heatmap/Resources/Public/JavaScript/dist/',
     ],
 ];
