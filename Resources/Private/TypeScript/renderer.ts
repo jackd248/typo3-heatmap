@@ -134,13 +134,13 @@ export class HeatmapRenderer {
                 start.setDate(start.getDate() - 364);
                 break;
             case 'month':
-                end = new Date(Math.min(latestData.getTime(), today.getTime()));
+                end = new Date(today); // Always show until today
                 start = new Date(end);
                 start.setDate(start.getDate() - 29);
                 break;
             case 'year-auto':
                 // Show current year based on available data
-                end = new Date(Math.min(latestData.getTime(), today.getTime()));
+                end = new Date(today); // Always show until today
                 const yearStart = new Date(end.getFullYear(), 0, 1);
                 start = new Date(Math.max(earliestData.getTime(), yearStart.getTime()));
 
@@ -152,7 +152,7 @@ export class HeatmapRenderer {
                 }
                 break;
             default: // 'auto'
-                end = new Date(Math.min(latestData.getTime(), today.getTime()));
+                end = new Date(today); // Always show until today
 
                 // Calculate optimal duration based on container dimensions for best space utilization
                 const optimalDuration = this.calculateOptimalDuration();
@@ -175,6 +175,17 @@ export class HeatmapRenderer {
         }
 
         this.dateRange = {start, end};
+
+        // Debug output
+        console.log('Date Range Calculation:', {
+            mode: this.config.dateRangeMode,
+            today: today.toISOString().split('T')[0],
+            start: start.toISOString().split('T')[0],
+            end: end.toISOString().split('T')[0],
+            earliestData: earliestData.toISOString().split('T')[0],
+            latestData: latestData.toISOString().split('T')[0],
+            totalDays: Math.ceil((end.getTime() - start.getTime()) / (24 * 60 * 60 * 1000)) + 1
+        });
     }
 
     private calculateOptimalDuration(): number {
@@ -509,9 +520,18 @@ export class HeatmapRenderer {
 
         const legendGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         const legendY = this.layout.heatmapHeight + 40;
-        const legendX = Math.max(0, this.layout.heatmapWidth - 140);
 
-        // "Less" label
+        // Calculate label widths for dynamic spacing
+        const lessTextWidth = this.estimateTextWidth(this.config.legendLess, 11);
+        const moreTextWidth = this.estimateTextWidth(this.config.legendMore, 11);
+        const squaresWidth = 5 * 12 - 2; // 5 squares * 12px spacing - 2px adjustment
+        const minSpacing = 8; // Minimum spacing between elements
+
+        // Calculate total legend width
+        const totalLegendWidth = lessTextWidth + minSpacing + squaresWidth + minSpacing + moreTextWidth;
+        const legendX = Math.max(0, this.layout.heatmapWidth - totalLegendWidth);
+
+        // "Less" label - positioned at start
         const lessLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         lessLabel.setAttribute('x', legendX.toString());
         lessLabel.setAttribute('y', legendY.toString());
@@ -520,27 +540,35 @@ export class HeatmapRenderer {
         lessLabel.textContent = this.config.legendLess;
         legendGroup.appendChild(lessLabel);
 
-        // Legend squares
+        // Legend squares - positioned after less label + spacing
+        const squaresStartX = legendX + lessTextWidth + minSpacing;
+        const thresholds = this.colorScale.getThresholds();
+
         for (let i = 0; i < 5; i++) {
             const square = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-            square.setAttribute('x', (legendX + 35 + (i * 12)).toString());
+            square.setAttribute('x', (squaresStartX + (i * 12)).toString());
             square.setAttribute('y', (legendY - 10).toString());
             square.setAttribute('width', '10');
             square.setAttribute('height', '10');
             square.setAttribute('rx', '2');
 
             if (i === 0) {
-                square.setAttribute('fill', '#ebedf0');
+                square.setAttribute('fill', 'var(--typo3-heatmap-empty-color, rgba(235, 237, 240, 0.3))');
             } else {
                 const {r, g, b} = this.config.color;
-                square.setAttribute('fill', `rgba(${r}, ${g}, ${b}, ${0.2 * i})`);
+                const opacities = [0, 0.4, 0.6, 0.8, 1.0]; // Match ColorScale opacity values
+                square.setAttribute('fill', `rgba(${r}, ${g}, ${b}, ${opacities[i]})`);
             }
+
+            // Add hover tooltip with value range
+            this.addLegendSquareTooltip(square, i, thresholds);
+
             legendGroup.appendChild(square);
         }
 
-        // "More" label
+        // "More" label - positioned after squares + spacing
         const moreLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        moreLabel.setAttribute('x', (legendX + 100).toString());
+        moreLabel.setAttribute('x', (squaresStartX + squaresWidth + minSpacing).toString());
         moreLabel.setAttribute('y', legendY.toString());
         moreLabel.setAttribute('fill', '#586069');
         moreLabel.setAttribute('font-size', '11px');
@@ -548,6 +576,54 @@ export class HeatmapRenderer {
         legendGroup.appendChild(moreLabel);
 
         this.mainGroup.appendChild(legendGroup);
+    }
+
+    private estimateTextWidth(text: string, fontSize: number): number {
+        // Rough estimation: average character width is about 0.6 * fontSize
+        // This works well for typical fonts used in SVG
+        return text.length * fontSize * 0.6;
+    }
+
+    private addLegendSquareTooltip(square: SVGRectElement, level: number, thresholds: number[]): void {
+        if (!this.tooltip) return;
+
+        let tooltipText: string;
+
+        if (level === 0) {
+            // Empty/no data
+            tooltipText = '0';
+        } else if (level === 4) {
+            // Highest level - show threshold and above
+            tooltipText = `${thresholds[level]}+`;
+        } else {
+            // Show range between thresholds
+            const minValue = thresholds[level];
+            const maxValue = thresholds[level + 1] - 1;
+            tooltipText = minValue === maxValue ? `${minValue}` : `${minValue}-${maxValue}`;
+        }
+
+        const showTooltip = (event: MouseEvent) => {
+            if (!this.tooltip) return;
+
+            const squareX = parseFloat(square.getAttribute('x') || '0') + this.layout.offsetX;
+            const squareY = parseFloat(square.getAttribute('y') || '0') + this.layout.offsetY;
+
+            this.tooltip.show(
+                squareX + 5, // Center on square horizontally
+                squareY, // Position at square level vertically
+                tooltipText,
+                this.layout.containerWidth,
+                this.layout.containerHeight
+            );
+        };
+
+        const hideTooltip = () => {
+            if (!this.tooltip) return;
+            this.tooltip.hide();
+        };
+
+        square.addEventListener('mouseover', showTooltip);
+        square.addEventListener('mouseout', hideTooltip);
     }
 
     public destroy(): void {

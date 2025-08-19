@@ -37,7 +37,7 @@ export class ColorScale {
       this.thresholds = [0, 2, 4, 7, 11];
     } else if (this.maxValue <= 30) {
       // For medium values
-      this.thresholds = [0, 5, 10, 18, 25];
+      this.thresholds = [0, 1, 6, 15, 25];
     } else {
       // For high values, use quartile-based distribution
       const step = Math.ceil(this.maxValue / 5);
@@ -55,9 +55,9 @@ export class ColorScale {
   public getColor(value: number): string {
     const { r, g, b } = this.config.color;
 
-    // Empty state
+    // Empty state - use CSS custom property that adapts to dark/light mode
     if (value === 0) {
-      return '#ebedf0';
+      return 'var(--typo3-heatmap-empty-color, rgba(235, 237, 240, 0.3))';
     }
 
     // Find threshold level (1-4)
@@ -72,10 +72,10 @@ export class ColorScale {
     // Use more aggressive scaling for better visual differentiation
     let opacity: number;
     switch (level) {
-      case 1: opacity = 0.25; break; // Lighter but visible
-      case 2: opacity = 0.45; break; // More distinct from level 1
-      case 3: opacity = 0.65; break; // Clear middle tone
-      case 4: opacity = 0.85; break; // Strong but not solid
+      case 1: opacity = 0.4; break; // More visible than empty
+      case 2: opacity = 0.6; break; // More distinct from level 1
+      case 3: opacity = 0.8; break; // Clear middle tone
+      case 4: opacity = 1.0; break; // Maximum intensity
       default: opacity = 1.0; break; // Maximum intensity
     }
 

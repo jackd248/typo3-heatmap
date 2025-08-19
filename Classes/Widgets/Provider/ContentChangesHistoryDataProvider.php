@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the TYPO3 CMS extension "typo3_heatmap".
+ * This file is part of the TYPO3 CMS extension "typo3_heatmap_widget".
  *
  * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
  *
@@ -21,7 +21,7 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace KonradMichalik\Typo3Heatmap\Widgets\Provider;
+namespace KonradMichalik\Typo3HeatmapWidget\Widgets\Provider;
 
 use Doctrine\DBAL\ParameterType;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
@@ -29,7 +29,7 @@ use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Dashboard\Widgets\ListDataProviderInterface;
 
-readonly class ErrorDataProvider implements ListDataProviderInterface
+readonly class ContentChangesHistoryDataProvider implements ListDataProviderInterface
 {
     public function __construct(
         private ConnectionPool $connectionPool,
@@ -38,18 +38,19 @@ readonly class ErrorDataProvider implements ListDataProviderInterface
 
     /**
      * @throws \Doctrine\DBAL\Exception
+     * @throws RouteNotFoundException
      */
     public function getItems(): array
     {
-        $queryBuilder = $this->connectionPool->getQueryBuilderForTable('sys_log');
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable('sys_history');
         $queryBuilder->getRestrictions()->removeAll();
 
         $query = $queryBuilder
             ->selectLiteral('DATE(FROM_UNIXTIME(tstamp)) AS date')
             ->addSelectLiteral('COUNT(*) AS count')
-            ->from('sys_log')
+            ->from('sys_history')
             ->where(
-                $queryBuilder->expr()->gte('error', $queryBuilder->createNamedParameter(1, ParameterType::INTEGER))
+                $queryBuilder->expr()->neq('tablename', $queryBuilder->createNamedParameter('', ParameterType::STRING))
             )
             ->groupBy('date')
             ->orderBy('date', 'DESC');
@@ -71,7 +72,7 @@ readonly class ErrorDataProvider implements ListDataProviderInterface
                 '?constraint%5BtimeFrame%5D=30' .
                 '&constraint%5BmanualDateStart%5D=' . urlencode($startDate) .
                 '&constraint%5BmanualDateStop%5D=' . urlencode($endDate) .
-                '&constraint%5Bchannel%5D=php';
+                '&constraint%5Bchannel%5D=history';
         }
         return $items;
     }

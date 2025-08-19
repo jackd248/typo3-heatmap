@@ -1,4 +1,21 @@
 /* Heatmap Widget Styles - GitHub-inspired */
+
+/* CSS Custom Properties for Dark/Light Mode Support */
+:root {
+    --typo3-heatmap-empty-color: rgba(235, 237, 240, 0.3); /* Light mode: light gray */
+}
+
+/* Dark mode support for TYPO3 v13 */
+html[data-color-scheme="dark"] {
+    --typo3-heatmap-empty-color: rgba(48, 54, 61, 0.8); /* Dark mode: dark gray */
+}
+
+/* Legacy dark mode support for older TYPO3 versions */
+body.t3-dark-theme,
+body.typo3-dark-theme {
+    --typo3-heatmap-empty-color: rgba(48, 54, 61, 0.8); /* Dark mode: dark gray */
+}
+
 .widget-content-heatmap {
     position: relative;
     width: 100%;

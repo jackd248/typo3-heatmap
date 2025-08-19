@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the TYPO3 CMS extension "typo3_heatmap".
+ * This file is part of the TYPO3 CMS extension "typo3_heatmap_widget".
  *
  * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
  *
@@ -21,11 +21,11 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace KonradMichalik\Typo3Heatmap\Tests\Unit\Widgets\Provider;
+namespace KonradMichalik\Typo3HeatmapWidget\Tests\Unit\Widgets\Provider;
 
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Result;
-use KonradMichalik\Typo3Heatmap\Widgets\Provider\ContentChangesDataProvider;
+use KonradMichalik\Typo3HeatmapWidget\Widgets\Provider\ContentChangesHistoryDataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
@@ -34,9 +34,9 @@ use TYPO3\CMS\Core\Database\Query\Expression\ExpressionBuilder;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Database\Query\Restriction\QueryRestrictionContainerInterface;
 
-class ContentChangesDataProviderTest extends TestCase
+class ContentChangesHistoryDataProviderTest extends TestCase
 {
-    private ContentChangesDataProvider $subject;
+    private ContentChangesHistoryDataProvider $subject;
     private ConnectionPool&MockObject $connectionPool;
     private UriBuilder&MockObject $uriBuilder;
     private QueryBuilder&MockObject $queryBuilder;
@@ -55,20 +55,26 @@ class ContentChangesDataProviderTest extends TestCase
         $this->restrictions = $this->createMock(QueryRestrictionContainerInterface::class);
         $this->result = $this->createMock(Result::class);
 
-        $this->subject = new ContentChangesDataProvider($this->connectionPool, $this->uriBuilder);
+        $this->subject = new ContentChangesHistoryDataProvider($this->connectionPool, $this->uriBuilder);
     }
 
     public function testGetItemsReturnsExpectedData(): void
     {
+        $rawData = [
+            ['date' => '2023-12-01', 'count' => 8],
+            ['date' => '2023-12-02', 'count' => 4],
+        ];
+
+        // Expected data after link enrichment (history channel)
         $expectedData = [
-            ['date' => '2023-12-01', 'count' => 5, 'link' => '?constraint%5BtimeFrame%5D=30&constraint%5BmanualDateStart%5D=2023-12-01T00%3A00%3A00Z&constraint%5BmanualDateStop%5D=2023-12-01T23%3A59%3A59Z&constraint%5Bchannel%5D=content'],
-            ['date' => '2023-12-02', 'count' => 3, 'link' => '?constraint%5BtimeFrame%5D=30&constraint%5BmanualDateStart%5D=2023-12-02T00%3A00%3A00Z&constraint%5BmanualDateStop%5D=2023-12-02T23%3A59%3A59Z&constraint%5Bchannel%5D=content'],
+            ['date' => '2023-12-01', 'count' => 8, 'link' => '/typo3/module/system/BelogLog?constraint%5BtimeFrame%5D=30&constraint%5BmanualDateStart%5D=2023-12-01T00%3A00%3A00Z&constraint%5BmanualDateStop%5D=2023-12-01T23%3A59%3A59Z&constraint%5Bchannel%5D=history'],
+            ['date' => '2023-12-02', 'count' => 4, 'link' => '/typo3/module/system/BelogLog?constraint%5BtimeFrame%5D=30&constraint%5BmanualDateStart%5D=2023-12-02T00%3A00%3A00Z&constraint%5BmanualDateStop%5D=2023-12-02T23%3A59%3A59Z&constraint%5Bchannel%5D=history'],
         ];
 
         $this->connectionPool
             ->expects(self::once())
             ->method('getQueryBuilderForTable')
-            ->with('sys_log')
+            ->with('sys_history')
             ->willReturn($this->queryBuilder);
 
         $this->queryBuilder
@@ -95,47 +101,30 @@ class ContentChangesDataProviderTest extends TestCase
         $this->queryBuilder
             ->expects(self::once())
             ->method('from')
-            ->with('sys_log')
+            ->with('sys_history')
             ->willReturn($this->queryBuilder);
 
         $this->queryBuilder
-            ->expects(self::exactly(2))
+            ->expects(self::once())
             ->method('expr')
             ->willReturn($this->expressionBuilder);
 
         $this->expressionBuilder
-            ->expects(self::exactly(2))
-            ->method('eq')
-            ->willReturnCallback(function (string $field, string $value): string {
-                if ($field === 'type') {
-                    return "type = '1'";
-                }
-                if ($field === 'error') {
-                    return "error = '0'";
-                }
-                return '';
-            });
+            ->expects(self::once())
+            ->method('neq')
+            ->with('tablename', ':param1')
+            ->willReturn("tablename != ''");
 
         $this->queryBuilder
-            ->expects(self::exactly(2))
+            ->expects(self::once())
             ->method('createNamedParameter')
-            ->willReturnCallback(function (int $value, int|ParameterType $type = null): string {
-                // Handle both old int constants and new ParameterType enum
-                $isIntegerType = $type === ParameterType::INTEGER;
-
-                if ($value === 1 && $isIntegerType) {
-                    return ':param1';
-                }
-                if ($value === 0 && $isIntegerType) {
-                    return ':param2';
-                }
-                return '';
-            });
+            ->with('', ParameterType::STRING)
+            ->willReturn(':param1');
 
         $this->queryBuilder
             ->expects(self::once())
             ->method('where')
-            ->with("type = '1'", "error = '0'")
+            ->with("tablename != ''")
             ->willReturn($this->queryBuilder);
 
         $this->queryBuilder
@@ -158,7 +147,14 @@ class ContentChangesDataProviderTest extends TestCase
         $this->result
             ->expects(self::once())
             ->method('fetchAllAssociative')
-            ->willReturn($expectedData);
+            ->willReturn($rawData);
+
+        // Mock UriBuilder for link generation
+        $this->uriBuilder
+            ->expects(self::exactly(2))
+            ->method('buildUriFromRoute')
+            ->with('system_BelogLog')
+            ->willReturn('/typo3/module/system/BelogLog');
 
         $actualData = $this->subject->getItems();
 
@@ -170,7 +166,7 @@ class ContentChangesDataProviderTest extends TestCase
         $this->connectionPool
             ->expects(self::once())
             ->method('getQueryBuilderForTable')
-            ->with('sys_log')
+            ->with('sys_history')
             ->willReturn($this->queryBuilder);
 
         $this->queryBuilder
@@ -199,7 +195,7 @@ class ContentChangesDataProviderTest extends TestCase
             ->willReturn($this->expressionBuilder);
 
         $this->expressionBuilder
-            ->method('eq')
+            ->method('neq')
             ->willReturn('');
 
         $this->queryBuilder

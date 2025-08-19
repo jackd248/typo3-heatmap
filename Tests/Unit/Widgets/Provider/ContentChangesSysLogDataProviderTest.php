@@ -25,7 +25,7 @@ namespace KonradMichalik\Typo3Heatmap\Tests\Unit\Widgets\Provider;
 
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Result;
-use KonradMichalik\Typo3Heatmap\Widgets\Provider\ErrorDataProvider;
+use KonradMichalik\Typo3Heatmap\Widgets\Provider\ContentChangesDataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
@@ -34,9 +34,9 @@ use TYPO3\CMS\Core\Database\Query\Expression\ExpressionBuilder;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Database\Query\Restriction\QueryRestrictionContainerInterface;
 
-class ErrorDataProviderTest extends TestCase
+class ContentChangesSysLogDataProviderTest extends TestCase
 {
-    private ErrorDataProvider $subject;
+    private ContentChangesSysLogDataProvider $subject;
     private ConnectionPool&MockObject $connectionPool;
     private UriBuilder&MockObject $uriBuilder;
     private QueryBuilder&MockObject $queryBuilder;
@@ -55,20 +55,20 @@ class ErrorDataProviderTest extends TestCase
         $this->restrictions = $this->createMock(QueryRestrictionContainerInterface::class);
         $this->result = $this->createMock(Result::class);
 
-        $this->subject = new ErrorDataProvider($this->connectionPool, $this->uriBuilder);
+        $this->subject = new ContentChangesSysLogDataProvider($this->connectionPool, $this->uriBuilder);
     }
 
     public function testGetItemsReturnsExpectedData(): void
     {
         $rawData = [
-            ['date' => '2023-12-01', 'count' => 2],
-            ['date' => '2023-12-02', 'count' => 1],
+            ['date' => '2023-12-01', 'count' => 5],
+            ['date' => '2023-12-02', 'count' => 3],
         ];
 
-        // Expected data after link enrichment (php channel for errors)
+        // Expected data after link enrichment
         $expectedData = [
-            ['date' => '2023-12-01', 'count' => 2, 'link' => '/typo3/module/system/BelogLog?constraint%5BtimeFrame%5D=30&constraint%5BmanualDateStart%5D=2023-12-01T00%3A00%3A00Z&constraint%5BmanualDateStop%5D=2023-12-01T23%3A59%3A59Z&constraint%5Bchannel%5D=php'],
-            ['date' => '2023-12-02', 'count' => 1, 'link' => '/typo3/module/system/BelogLog?constraint%5BtimeFrame%5D=30&constraint%5BmanualDateStart%5D=2023-12-02T00%3A00%3A00Z&constraint%5BmanualDateStop%5D=2023-12-02T23%3A59%3A59Z&constraint%5Bchannel%5D=php'],
+            ['date' => '2023-12-01', 'count' => 5, 'link' => '/typo3/module/system/BelogLog?constraint%5BtimeFrame%5D=30&constraint%5BmanualDateStart%5D=2023-12-01T00%3A00%3A00Z&constraint%5BmanualDateStop%5D=2023-12-01T23%3A59%3A59Z&constraint%5Bchannel%5D=content'],
+            ['date' => '2023-12-02', 'count' => 3, 'link' => '/typo3/module/system/BelogLog?constraint%5BtimeFrame%5D=30&constraint%5BmanualDateStart%5D=2023-12-02T00%3A00%3A00Z&constraint%5BmanualDateStop%5D=2023-12-02T23%3A59%3A59Z&constraint%5Bchannel%5D=content'],
         ];
 
         $this->connectionPool
@@ -105,26 +105,43 @@ class ErrorDataProviderTest extends TestCase
             ->willReturn($this->queryBuilder);
 
         $this->queryBuilder
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('expr')
             ->willReturn($this->expressionBuilder);
 
         $this->expressionBuilder
-            ->expects(self::once())
-            ->method('gte')
-            ->with('error', ':param1')
-            ->willReturn("error >= '1'");
+            ->expects(self::exactly(2))
+            ->method('eq')
+            ->willReturnCallback(function (string $field, string $value): string {
+                if ($field === 'type') {
+                    return "type = '1'";
+                }
+                if ($field === 'error') {
+                    return "error = '0'";
+                }
+                return '';
+            });
 
         $this->queryBuilder
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('createNamedParameter')
-            ->with(1, ParameterType::INTEGER)
-            ->willReturn(':param1');
+            ->willReturnCallback(function (int $value, int|ParameterType|null $type): string {
+                // Handle both old int constants and new ParameterType enum
+                $isIntegerType = $type === ParameterType::INTEGER;
+
+                if ($value === 1 && $isIntegerType) {
+                    return ':param1';
+                }
+                if ($value === 0 && $isIntegerType) {
+                    return ':param2';
+                }
+                return '';
+            });
 
         $this->queryBuilder
             ->expects(self::once())
             ->method('where')
-            ->with("error >= '1'")
+            ->with("type = '1'", "error = '0'")
             ->willReturn($this->queryBuilder);
 
         $this->queryBuilder
@@ -195,7 +212,7 @@ class ErrorDataProviderTest extends TestCase
             ->willReturn($this->expressionBuilder);
 
         $this->expressionBuilder
-            ->method('gte')
+            ->method('eq')
             ->willReturn('');
 
         $this->queryBuilder

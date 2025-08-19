@@ -14,7 +14,7 @@ services:
     contentChangesHeatmap:
         class: 'KonradMichalik\Typo3Heatmap\Widgets\Heatmap'
         arguments:
-            $dataProvider: '@KonradMichalik\Typo3Heatmap\Widgets\Provider\ContentChangesDataProvider'
+            $dataProvider: '@KonradMichalik\Typo3Heatmap\Widgets\Provider\ContentChangesHistoryDataProvider'
             $options:
                 dateRangeMode: 'auto'
         tags:
