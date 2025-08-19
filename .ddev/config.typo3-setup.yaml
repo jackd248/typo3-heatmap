@@ -2,8 +2,8 @@ type: php
 docroot: .Build
 webserver_type: apache-fpm
 additional_hostnames:
-  - 12.typo3-heatmap-widget
-  - 13.typo3-heatmap-widget
+  - 12.typo3-heatmap
+  - 13.typo3-heatmap
 hooks:
    post-start:
     - exec: mkdir -p /var/www/html/.Build/ && cp /var/www/html/.ddev/.typo3-setup/templates/* /var/www/html/.Build/
