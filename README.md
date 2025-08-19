@@ -18,7 +18,7 @@
 This extension provides a dashboard widget to display a (GitHub lookalike) contribution heatmap of e.g. for TYPO3 content changes.
 
 > [!warning]
-> This package is in early development stage and may change significantly in the future. Use it at your own risk.
+> This package is in early development stage and may change significantly in the future. I am working steadily to release a stable version as soon as possible.
 
 ![Content changes heatmap](Documentation/Images/heatmap.jpg "Content changes heatmap")
 
