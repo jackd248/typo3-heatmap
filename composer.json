@@ -1,5 +1,5 @@
 {
-	"name": "konradmichalik/typo3-heatmap-widget",
+	"name": "konradmichalik/typo3-heatmap",
 	"description": "TYPO3 dashboard widget to display a (GitHub lookalike) contribution heatmap of e.g. content changes.",
 	"license": [
 		"GPL-2.0-or-later"
@@ -44,9 +44,12 @@
 		"typo3/cms-lowlevel": "^12.4 || ^13.4",
 		"typo3/coding-standards": "^0.7 || ^0.8"
 	},
+	"replace": {
+		"konradmichalik/typo3-heatmap-widget": "self.version"
+	},
 	"autoload": {
 		"psr-4": {
-			"KonradMichalik\\Typo3HeatmapWidget\\": "Classes/"
+			"KonradMichalik\\Typo3Heatmap\\": "Classes/"
 		}
 	},
 	"config": {
@@ -60,7 +63,7 @@
 	},
 	"extra": {
 		"typo3/cms": {
-			"extension-key": "typo3_heatmap_widget"
+			"extension-key": "typo3_heatmap"
 		}
 	},
 	"scripts": {

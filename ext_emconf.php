@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the TYPO3 CMS extension "typo3_heatmap_widget".
+ * This file is part of the TYPO3 CMS extension "typo3_heatmap".
  *
  * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
  *
@@ -20,8 +20,8 @@
  */
 
 $EM_CONF[$_EXTKEY] = [
-    'title' => 'Heatmap Widget',
-    'description' => 'Dashboard widget to display a (GitHub lookalike) contribution heatmap of e.g. content changes.',
+    'title' => 'Heatmap',
+    'description' => 'TYPO3 extension to display heatmaps of content changes, user activity and more at various places in the TYPO3 backend.',
     'category' => 'module',
     'author' => 'Konrad Michalik',
     'author_email' => 'hej@konradmichalik.dev',

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the TYPO3 CMS extension "typo3_heatmap_widget".
+ * This file is part of the TYPO3 CMS extension "typo3_heatmap".
  *
  * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
  *
@@ -26,18 +26,18 @@ use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
 return [
     'heatmap-widget' => [
         'provider' => SvgIconProvider::class,
-        'source' => 'EXT:typo3_heatmap_widget/Resources/Public/Icons/content-heatmap-widget.svg',
+        'source' => 'EXT:typo3_heatmap/Resources/Public/Icons/content-heatmap-widget.svg',
     ],
     'heatmap-widget-error' => [
         'provider' => SvgIconProvider::class,
-        'source' => 'EXT:typo3_heatmap_widget/Resources/Public/Icons/error-heatmap-widget.svg',
+        'source' => 'EXT:typo3_heatmap/Resources/Public/Icons/error-heatmap-widget.svg',
     ],
     'heatmap-widget-custom' => [
         'provider' => SvgIconProvider::class,
-        'source' => 'EXT:typo3_heatmap_widget/Resources/Public/Icons/custom-heatmap-widget.svg',
+        'source' => 'EXT:typo3_heatmap/Resources/Public/Icons/custom-heatmap-widget.svg',
     ],
     'heatmap-widget-empty' => [
         'provider' => SvgIconProvider::class,
-        'source' => 'EXT:typo3_heatmap_widget/Resources/Public/Icons/empty.svg',
+        'source' => 'EXT:typo3_heatmap/Resources/Public/Icons/empty.svg',
     ],
 ];

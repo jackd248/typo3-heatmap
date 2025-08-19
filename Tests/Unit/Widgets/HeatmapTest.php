@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the TYPO3 CMS extension "typo3_heatmap_widget".
+ * This file is part of the TYPO3 CMS extension "typo3_heatmap".
  *
  * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
  *
@@ -21,10 +21,10 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace KonradMichalik\Typo3HeatmapWidget\Tests\Unit\Widgets;
+namespace KonradMichalik\Typo3Heatmap\Tests\Unit\Widgets;
 
-use KonradMichalik\Typo3HeatmapWidget\Configuration;
-use KonradMichalik\Typo3HeatmapWidget\Widgets\Heatmap;
+use KonradMichalik\Typo3Heatmap\Configuration;
+use KonradMichalik\Typo3Heatmap\Widgets\Heatmap;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
@@ -104,8 +104,8 @@ class HeatmapTest extends TestCase
     public function testGetOptions(): void
     {
         $expectedOptions = [
-            'tooltipItemSingular' => 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:tooltip.content.singular',
-            'tooltipItemPlural' => 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:tooltip.content.plural',
+            'tooltipItemSingular' => 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.content.singular',
+            'tooltipItemPlural' => 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.content.plural',
             'test_option' => 'test_value',
         ];
         $actualOptions = $this->subject->getOptions();
@@ -127,8 +127,8 @@ class HeatmapTest extends TestCase
 
         self::assertSame(
             [
-                'tooltipItemSingular' => 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:tooltip.content.singular',
-                'tooltipItemPlural' => 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:tooltip.content.plural',
+                'tooltipItemSingular' => 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.content.singular',
+                'tooltipItemPlural' => 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.content.plural',
             ],
             $actualOptions
         );
@@ -161,8 +161,8 @@ class HeatmapTest extends TestCase
         self::assertInstanceOf(Heatmap::class, $subject);
         self::assertSame(
             [
-                'tooltipItemSingular' => 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:tooltip.content.singular',
-                'tooltipItemPlural' => 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:tooltip.content.plural',
+                'tooltipItemSingular' => 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.content.singular',
+                'tooltipItemPlural' => 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.content.plural',
             ],
             $subject->getOptions()
         );
@@ -171,8 +171,8 @@ class HeatmapTest extends TestCase
     public function testConstructorWithCustomOptions(): void
     {
         $customOptions = [
-            'tooltipItemSingular' => 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:tooltip.content.singular',
-            'tooltipItemPlural' => 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:tooltip.content.plural',
+            'tooltipItemSingular' => 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.content.singular',
+            'tooltipItemPlural' => 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.content.plural',
             'color' => 'red',
             'duration' => 365,
         ];

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the TYPO3 CMS extension "typo3_heatmap_widget".
+ * This file is part of the TYPO3 CMS extension "typo3_heatmap".
  *
  * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
  *
@@ -21,11 +21,11 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace KonradMichalik\Typo3HeatmapWidget\Tests\Unit\Widgets\Provider;
+namespace KonradMichalik\Typo3Heatmap\Tests\Unit\Widgets\Provider;
 
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Result;
-use KonradMichalik\Typo3HeatmapWidget\Widgets\Provider\ErrorDataProvider;
+use KonradMichalik\Typo3Heatmap\Widgets\Provider\ErrorDataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Backend\Routing\UriBuilder;

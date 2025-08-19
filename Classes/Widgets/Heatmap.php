@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the TYPO3 CMS extension "typo3_heatmap_widget".
+ * This file is part of the TYPO3 CMS extension "typo3_heatmap".
  *
  * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
  *
@@ -21,10 +21,10 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace KonradMichalik\Typo3HeatmapWidget\Widgets;
+namespace KonradMichalik\Typo3Heatmap\Widgets;
 
-use KonradMichalik\Typo3HeatmapWidget\Configuration;
-use KonradMichalik\Typo3HeatmapWidget\Utility\ViewFactoryHelper;
+use KonradMichalik\Typo3Heatmap\Configuration;
+use KonradMichalik\Typo3Heatmap\Utility\ViewFactoryHelper;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
@@ -74,8 +74,8 @@ class Heatmap implements WidgetInterface, RequestAwareWidgetInterface, Additiona
     public function getOptions(): array
     {
         $defaultOptions = [
-            'tooltipItemSingular' => 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:tooltip.content.singular',
-            'tooltipItemPlural' => 'LLL:EXT:typo3_heatmap_widget/Resources/Private/Language/locallang.xlf:tooltip.content.plural',
+            'tooltipItemSingular' => 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.content.singular',
+            'tooltipItemPlural' => 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.content.plural',
         ];
         return array_merge($defaultOptions, $this->options);
     }
@@ -88,7 +88,7 @@ class Heatmap implements WidgetInterface, RequestAwareWidgetInterface, Additiona
     public function getJavaScriptModuleInstructions(): array
     {
         return [
-            JavaScriptModuleInstruction::create('@KonradMichalik/Typo3HeatmapWidget/heatmap.js'),
+            JavaScriptModuleInstruction::create('@KonradMichalik/Typo3Heatmap/heatmap.js'),
         ];
     }
 }
