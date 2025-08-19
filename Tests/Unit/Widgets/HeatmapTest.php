@@ -106,6 +106,7 @@ class HeatmapTest extends TestCase
         $expectedOptions = [
             'tooltipItemSingular' => 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.content.singular',
             'tooltipItemPlural' => 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.content.plural',
+            'type' => 'custom',
             'test_option' => 'test_value',
         ];
         $actualOptions = $this->subject->getOptions();
@@ -129,6 +130,7 @@ class HeatmapTest extends TestCase
             [
                 'tooltipItemSingular' => 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.content.singular',
                 'tooltipItemPlural' => 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.content.plural',
+                'type' => 'custom',
             ],
             $actualOptions
         );
@@ -163,6 +165,7 @@ class HeatmapTest extends TestCase
             [
                 'tooltipItemSingular' => 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.content.singular',
                 'tooltipItemPlural' => 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.content.plural',
+                'type' => 'custom',
             ],
             $subject->getOptions()
         );
@@ -173,6 +176,7 @@ class HeatmapTest extends TestCase
         $customOptions = [
             'tooltipItemSingular' => 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.content.singular',
             'tooltipItemPlural' => 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.content.plural',
+            'type' => 'custom',
             'color' => 'red',
             'duration' => 365,
         ];

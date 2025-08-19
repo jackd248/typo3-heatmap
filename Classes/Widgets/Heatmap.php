@@ -76,6 +76,7 @@ class Heatmap implements WidgetInterface, RequestAwareWidgetInterface, Additiona
         $defaultOptions = [
             'tooltipItemSingular' => 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.content.singular',
             'tooltipItemPlural' => 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:tooltip.content.plural',
+            'type' => 'custom',
         ];
         return array_merge($defaultOptions, $this->options);
     }
