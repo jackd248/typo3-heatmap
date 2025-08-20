@@ -7,10 +7,6 @@ services:
     KonradMichalik\Typo3Heatmap\:
         resource: '../Classes/*'
 
-    KonradMichalik\Typo3Heatmap\Widgets\Provider\SysLogButtonProvider:
-        arguments:
-            $title: 'LLL:EXT:typo3_heatmap/Resources/Private/Language/locallang.xlf:widgets.recentUpdates.buttonText'
-
     contentChangesHeatmap:
         class: 'KonradMichalik\Typo3Heatmap\Widgets\Heatmap'
         arguments:
