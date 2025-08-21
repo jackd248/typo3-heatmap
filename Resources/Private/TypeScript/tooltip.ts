@@ -1,5 +1,5 @@
 /**
- * Module: @KonradMichalik/Typo3HeatmapWidget/tooltip
+ * Module: @KonradMichalik/Typo3Heatmap/tooltip
  *
  * SVG tooltip component for heatmap cells
  */

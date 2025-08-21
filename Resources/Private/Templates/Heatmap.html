@@ -28,8 +28,8 @@
                  {f:if(condition: options.tooltipHeight, then: 'data-options-tooltip-height="{options.tooltipHeight}"', else: '')}
                  data-options-tooltip-item-singular="{f:translate(key: options.tooltipItemSingular)}"
                  data-options-tooltip-item-plural="{f:translate(key: options.tooltipItemPlural)}"
-                 data-options-legend-less="{f:translate(key: 'legend.less', extensionName: 'Typo3HeatmapWidget')}"
-                 data-options-legend-more="{f:translate(key: 'legend.more', extensionName: 'Typo3HeatmapWidget')}"
+                 data-options-legend-less="{f:translate(key: 'legend.less', extensionName: 'Typo3Heatmap')}"
+                 data-options-legend-more="{f:translate(key: 'legend.more', extensionName: 'Typo3Heatmap')}"
                  {f:if(condition: options.weekStartsOnMonday, then: 'data-options-week-starts-on-monday="{options.weekStartsOnMonday}"', else: '')}
             ></div>
         </f:then>
@@ -37,7 +37,7 @@
             <div class="row widget-no-items-found">
                 <div class="d-flex flex-column align-items-center justify-content-center">
                     <core:icon identifier="heatmap-widget-empty" size="large"/>
-                    <f:translate key="widgets.empty" extensionName="Typo3HeatmapWidget"/>
+                    <f:translate key="widgets.empty" extensionName="Typo3Heatmap"/>
                 </div>
             </div>
         </f:else>

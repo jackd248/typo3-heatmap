@@ -1,5 +1,5 @@
 /**
- * Module: @KonradMichalik/Typo3HeatmapWidget/renderer
+ * Module: @KonradMichalik/Typo3Heatmap/renderer
  * Version: 2.1.0 - TypeScript GitHub-style heatmap with fixed positioning
  *
  * Simple GitHub-style heatmap renderer

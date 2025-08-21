@@ -44,4 +44,8 @@ return [
         'provider' => SvgIconProvider::class,
         'source' => 'EXT:typo3_heatmap/Resources/Public/Icons/empty.svg',
     ],
+    'actions-heatmap' => [
+        'provider' => SvgIconProvider::class,
+        'source' => 'EXT:typo3_heatmap/Resources/Public/Icons/actions-heatmap.svg',
+    ],
 ];

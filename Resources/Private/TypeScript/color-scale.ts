@@ -1,5 +1,5 @@
 /**
- * Module: @KonradMichalik/Typo3HeatmapWidget/color-scale
+ * Module: @KonradMichalik/Typo3Heatmap/color-scale
  *
  * Color scale calculator for heatmap visualization
  */

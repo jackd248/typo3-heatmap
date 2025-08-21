@@ -77,3 +77,35 @@ rect:hover {
     margin: 20px;
     opacity: 0.2;
 }
+
+/* User Activity Modal Styles */
+.user-activity-modal .heatmap-container {
+    min-height: 300px;
+    background: transparent;
+}
+
+.user-activity-modal .heatmap-container svg {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    background: transparent;
+    display: block;
+}
+
+.user-activity-modal .nav-tabs {
+    border-bottom: 1px solid #dee2e6;
+    margin-bottom: 0;
+}
+
+.user-activity-modal .tab-content {
+    min-height: 300px;
+}
+
+.user-activity-modal .spinner-border {
+    width: 2rem;
+    height: 2rem;
+}
+
+.user-activity-modal .alert {
+    margin: 20px 0;
+}

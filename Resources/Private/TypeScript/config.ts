@@ -1,5 +1,5 @@
 /**
- * Module: @KonradMichalik/Typo3HeatmapWidget/config
+ * Module: @KonradMichalik/Typo3Heatmap/config
  *
  * Configuration class for heatmap settings
  */
