@@ -59,7 +59,7 @@ class CustomDataProvider implements ListDataProviderInterface
 ```yaml
 services:
   custom-heatmap-widget:
-    class: 'KonradMichalik\Typo3HeatmapWidget\Widgets\Heatmap'
+    class: 'KonradMichalik\Typo3Heatmap\Widgets\Heatmap'
     arguments:
       $dataProvider: '@YourVendor\YourExtension\Widgets\Provider\CustomDataProvider'
       $options:

@@ -1,5 +1,5 @@
 /**
- * Module: @KonradMichalik/Typo3HeatmapWidget/layout
+ * Module: @KonradMichalik/Typo3Heatmap/layout
  * Version: 1.0.1 - Force single-row GitHub-style layout
  *
  * Layout calculator for responsive heatmap positioning

@@ -51,6 +51,31 @@
 			<trans-unit id="legend.more">
 				<source>More</source>
 			</trans-unit>
+
+			<trans-unit id="modal.user_activity.title">
+				<source>User Activity Heatmaps</source>
+			</trans-unit>
+			<trans-unit id="modal.user_activity.button">
+				<source>User Activity</source>
+			</trans-unit>
+			<trans-unit id="modal.user_activity.tab_content_changes">
+				<source>Content Changes</source>
+			</trans-unit>
+			<trans-unit id="modal.user_activity.tab_logins">
+				<source>Login Activity</source>
+			</trans-unit>
+			<trans-unit id="modal.user_activity.loading_content_changes">
+				<source>Loading content changes data...</source>
+			</trans-unit>
+			<trans-unit id="modal.user_activity.loading_logins">
+				<source>Loading login activity data...</source>
+			</trans-unit>
+			<trans-unit id="modal.user_activity.error_content_changes">
+				<source>Failed to load content changes data.</source>
+			</trans-unit>
+			<trans-unit id="modal.user_activity.error_logins">
+				<source>Failed to load login activity data.</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

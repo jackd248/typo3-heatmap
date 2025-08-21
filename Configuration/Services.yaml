@@ -7,6 +7,14 @@ services:
     KonradMichalik\Typo3Heatmap\:
         resource: '../Classes/*'
 
+    KonradMichalik\Typo3Heatmap\Controller\AjaxController:
+        public: true
+
+    KonradMichalik\Typo3Heatmap\EventListener\ModifyButtonBarEventListener:
+        tags:
+            - name: event.listener
+              identifier: 'typo3-heatmap-modify-button-bar'
+
     contentChangesHeatmap:
         class: 'KonradMichalik\Typo3Heatmap\Widgets\Heatmap'
         arguments:
